@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE22AF80-2122-484D-B90F-DB4587B383D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HSBC.InsuranceDataAnalysis.Model</RootNamespace>
+    <AssemblyName>PRIS3.Reinsurance.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClaimSheetModel.cs" />
+    <Compile Include="HanReModel.cs" />
+    <Compile Include="HugeDisasterModel.cs" />
+    <Compile Include="InforceBusinessListing.cs" />
+    <Compile Include="InsuranceReinsuranceStatement.cs" />
+    <Compile Include="LRAccountModel.cs" />
+    <Compile Include="LRClaimModel.cs" />
+    <Compile Include="LRContModel.cs" />
+    <Compile Include="LREdorModel.cs" />
+    <Compile Include="LRInsureContModel.cs" />
+    <Compile Include="MuReModel.cs" />
+    <Compile Include="PolicyAlternationReportGroup.cs" />
+    <Compile Include="ProductInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReinsuranceParticulars.cs" />
+    <Compile Include="ReinsurerInfo.cs" />
+    <Compile Include="RGAModel.cs" />
+    <Compile Include="RIClaimReportGroup.cs" />
+    <Compile Include="RIContractInfo.cs" />
+    <Compile Include="RIMonthlyReportGroup.cs" />
+    <Compile Include="SwissReModel.cs" />
+    <Compile Include="TEMP_LCCont.cs" />
+    <Compile Include="TEMP_LCGrpProduct.cs" />
+    <Compile Include="TEMP_LCInsureAcc.cs" />
+    <Compile Include="TEMP_LCInsureAccTrace.cs" />
+    <Compile Include="TEMP_LCInsured.cs" />
+    <Compile Include="TEMP_LCPolTransaction.cs" />
+    <Compile Include="TEMP_LCProduct.cs" />
+    <Compile Include="TEMP_LLClaimDetail.cs" />
+    <Compile Include="TEMP_LLClaimInfo.cs" />
+    <Compile Include="TEMP_LLClaimPolicy.cs" />
+    <Compile Include="TEMP_LMLiability.cs" />
+    <Compile Include="TEMP_LMProduct.cs" />
+    <Compile Include="ZaiBaoProductInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HSBC.InsuranceDataAnalysis.Utils\HSBC.InsuranceDataAnalysis.Utils.csproj">
+      <Project>{722e29b6-00d1-4b16-b20e-ec4685001b87}</Project>
+      <Name>HSBC.InsuranceDataAnalysis.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

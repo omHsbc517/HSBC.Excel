@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.UI", "HSBC.InsuranceDataAnalysis.UI\HSBC.InsuranceDataAnalysis.UI.csproj", "{B604D4CE-F42D-4644-893E-F087AEAF4DD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.Utils", "HSBC.InsuranceDataAnalysis.Utils\HSBC.InsuranceDataAnalysis.Utils.csproj", "{722E29B6-00D1-4B16-B20E-EC4685001B87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.Model", "HSBC.InsuranceDataAnalysis.Model\HSBC.InsuranceDataAnalysis.Model.csproj", "{EE22AF80-2122-484D-B90F-DB4587B383D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.BLL", "HSBC.InsuranceDataAnalysis.BLL\HSBC.InsuranceDataAnalysis.BLL.csproj", "{D1706CCE-7301-4CAF-AD9E-2EE86399B8D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.ExcelCore", "HSBC.InsuranceDataAnalysis.ExcelCore\HSBC.InsuranceDataAnalysis.ExcelCore.csproj", "{0A3FE2A4-C6F7-4983-8E31-1C568596B87F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.Test", "HSBC.InsuranceDataAnalysis.Test\HSBC.InsuranceDataAnalysis.Test.csproj", "{B9F08372-1EDC-40BA-9388-9FA42877416E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSBC.InsuranceDataAnalysis.ExcelCommon", "HSBC.InsuranceDataAnalysis.ExcelCommon\HSBC.InsuranceDataAnalysis.ExcelCommon.csproj", "{7D3D3246-9B20-4465-A907-D38D8CE9C02B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B604D4CE-F42D-4644-893E-F087AEAF4DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B604D4CE-F42D-4644-893E-F087AEAF4DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B604D4CE-F42D-4644-893E-F087AEAF4DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B604D4CE-F42D-4644-893E-F087AEAF4DD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{722E29B6-00D1-4B16-B20E-EC4685001B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{722E29B6-00D1-4B16-B20E-EC4685001B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{722E29B6-00D1-4B16-B20E-EC4685001B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{722E29B6-00D1-4B16-B20E-EC4685001B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE22AF80-2122-484D-B90F-DB4587B383D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE22AF80-2122-484D-B90F-DB4587B383D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE22AF80-2122-484D-B90F-DB4587B383D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE22AF80-2122-484D-B90F-DB4587B383D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1706CCE-7301-4CAF-AD9E-2EE86399B8D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1706CCE-7301-4CAF-AD9E-2EE86399B8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1706CCE-7301-4CAF-AD9E-2EE86399B8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1706CCE-7301-4CAF-AD9E-2EE86399B8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3FE2A4-C6F7-4983-8E31-1C568596B87F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3FE2A4-C6F7-4983-8E31-1C568596B87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3FE2A4-C6F7-4983-8E31-1C568596B87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3FE2A4-C6F7-4983-8E31-1C568596B87F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F08372-1EDC-40BA-9388-9FA42877416E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F08372-1EDC-40BA-9388-9FA42877416E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F08372-1EDC-40BA-9388-9FA42877416E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F08372-1EDC-40BA-9388-9FA42877416E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D3D3246-9B20-4465-A907-D38D8CE9C02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D3D3246-9B20-4465-A907-D38D8CE9C02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D3D3246-9B20-4465-A907-D38D8CE9C02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D3D3246-9B20-4465-A907-D38D8CE9C02B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
