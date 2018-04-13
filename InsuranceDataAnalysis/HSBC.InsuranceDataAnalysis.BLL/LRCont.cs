@@ -269,7 +269,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.Status = "01";
 
                     //基本保额
-                    currentModel.BasicSumInsured = Common.ConvertToStrToStrDecimal(tempModel.SumSi.Trim());
+                    currentModel.BasicSumInsured = Common.ConvertToStrToStrDecimal(tempModel.SumSi);
 
                     // 风险保额
                     currentModel.RiskAmnt = ConfigInformation.TextValue;
@@ -347,7 +347,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.ReinsurerName = Common.DefaultCommanyName;
 
                     //再保险公司代码
-                    currentModel.ReinsurerCode = reinsurer.GetReinsurerInforByName(currentModel.ReinsurerName).ReinsurerCode;
+                    var tempReinsurer = reinsurer.GetReinsurerInforByName(currentModel.ReinsurerName);
+                    currentModel.ReinsurerCode = tempReinsurer == null ? string.Empty : tempReinsurer.ReinsurerCode;
 
                     //再保险合同号码
                     var templstZaiBaoProductInfo = businessModel.lstZaiBaoProductInfo.Where(e =>
@@ -617,7 +618,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.ReinsurerName = tempModel.CompanyName;
 
                     //再保险公司代码
-                    currentModel.ReinsurerCode = reinsurer.GetReinsurerInforByName(currentModel.ReinsurerName).ReinsurerCode;
+                    var tempReinsurer = reinsurer.GetReinsurerInforByName(currentModel.ReinsurerName);
+                    currentModel.ReinsurerCode = tempReinsurer == null ? string.Empty : tempReinsurer.ReinsurerCode;
 
                     //再保险合同号码
                     var templstZaiBaoProductInfo = businessModel.lstZaiBaoProductInfo.Where(e =>

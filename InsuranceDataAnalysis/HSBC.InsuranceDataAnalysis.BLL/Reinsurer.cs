@@ -21,12 +21,12 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
         public ReinsurerInfo GetReinsurerInforByName(string reinsurerName)
         {
-            return listReinsurerInfor.Where(a => a.ReinsurerEnglishName == reinsurerName || a.ReinsurerChineseName == reinsurerName).Count()==0?null: listReinsurerInfor.Where(a => a.ReinsurerEnglishName == reinsurerName || a.ReinsurerChineseName == reinsurerName).ToList().First();
+            return listReinsurerInfor.Where(a => a.ReinsurerEnglishName == reinsurerName || a.ReinsurerChineseName == reinsurerName).Count()==0?null: listReinsurerInfor.Where(a => a.ReinsurerEnglishName == reinsurerName || a.ReinsurerChineseName == reinsurerName).ToList().FirstOrDefault();
         }
 
         public ReinsurerInfo GetReinsurerInforByCode(string reinsurerCode)
         {
-            return listReinsurerInfor.Where(a => a.ReinsurerCode == reinsurerCode).ToList().Count == 0 ? null : listReinsurerInfor.Where(a => a.ReinsurerCode == reinsurerCode).ToList().First();
+            return listReinsurerInfor.Where(a => a.ReinsurerCode == reinsurerCode).ToList().Count == 0 ? null : listReinsurerInfor.Where(a => a.ReinsurerCode == reinsurerCode).ToList().FirstOrDefault();
         }
 
 
