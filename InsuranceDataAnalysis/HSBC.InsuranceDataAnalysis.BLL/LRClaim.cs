@@ -107,7 +107,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             }
             catch (Exception ex)
             {
-                throw ex;
+                ProcessLogProxy.Error(ex.Message);
+                ProcessLogProxy.Error("Build fail");
             }
           
         }

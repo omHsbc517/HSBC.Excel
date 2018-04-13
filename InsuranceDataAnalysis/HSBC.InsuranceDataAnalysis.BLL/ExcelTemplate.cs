@@ -484,6 +484,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnDateType("Sheet1", 65);
             excelApp.SetColumnDateType("Sheet1", 67);
             excelApp.SetColumnDateType("Sheet1", 68);
+
+            excelApp.SetColumnDecimalsType("Sheet1", 63);
+            excelApp.SetColumnDecimalsType("Sheet1", 64);
+
             excelApp.Save();
         }
 
