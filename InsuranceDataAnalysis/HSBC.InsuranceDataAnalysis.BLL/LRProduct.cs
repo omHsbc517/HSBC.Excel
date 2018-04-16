@@ -55,27 +55,22 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 {
                     var tempList = lstTEMP_LMProductModel.Where(e => e.StartDate <= temp.EffectiveDate);
 
-                    //var tempModel = (from lmProduct in tempList
-                    //                 join productInfo in lstProductInfoModel
-                    //                 on lmProduct.ProductCode equals productInfo.ProductCode
-                    //                 join lMLiability in lstTEMP_LMLiabilityModel
-                    //                 //join lMLiability in PersonalLiabilityCategory.LstCategory 
-                    //                 on lmProduct.ProductCode equals lMLiability.ProductCode
-                    //                 select new
-                    //                 {
-                    //                     productCode = lmProduct.ProductCode,
-                    //                     productName = lmProduct.ProductEnName,
-                    //                     productType = lmProduct.ProductType,
-                    //                     LiabilityCode = lMLiability.LiabilityCode,
-                    //                     LiabilityName = lMLiability.LiabilityName,
-                    //                     TermType = lmProduct.TermType
-                    //                 }).ToList();
+                    var tempModel = (from lmProduct in tempList
+                                     join productInfo in lstProductInfoModel
+                                     on lmProduct.ProductCode equals productInfo.ProductCode
+                                     select new
+                                     {
+                                         productCode = lmProduct.ProductCode,
+                                         productName = lmProduct.ProductName,
+                                         productType = lmProduct.ProductType,
+                                         TermType = lmProduct.TermType
+                                     }).ToList();
 
                     int contractOrder = 0;
-                    foreach (var temp1 in tempList)
+                    foreach (var temp1 in tempModel)
                     {
                         this.Test3(yearMonthDay, serialNumber, startRowIndex, temp, contractOrder,
-                            temp1.ProductCode, temp1.ProductName, temp1.ProductType,
+                            temp1.productCode, temp1.productName, temp1.productType,
                             temp1.TermType, contractInfoBusiness);
 
                         contractOrder += 1;
