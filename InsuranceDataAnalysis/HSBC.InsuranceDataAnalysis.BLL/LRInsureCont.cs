@@ -104,7 +104,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lRInsureContModel.CompanyCode = origanizationCode;
                 lRInsureContModel.ReInsuranceContNo = currentReInsuranceContNo; //
                 lRInsureContModel.ReInsuranceContName = model.TreatyName;
-                lRInsureContModel.ReInsuranceContTitle = ConfigInformation.TextValue;
+                lRInsureContModel.ReInsuranceContTitle = "";
                 lRInsureContModel.MainReInsuranceContNo = MainReInsuranceContNo;//主合同号码
                 lRInsureContModel.ContOrAmendmentType = "合同".Equals(model.ContOrAmendmentType) ? "1" : "2";
                 lRInsureContModel.ContAttribute = "1";
@@ -148,7 +148,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lRInsureContModel.CompanyCode = origanizationCode;
                 lRInsureContModel.ReInsuranceContNo = currentReInsuranceContNo; //合同号码需赋值
                 lRInsureContModel.ReInsuranceContName = model.TreatyName;
-                lRInsureContModel.ReInsuranceContTitle = ConfigInformation.TextValue;
+                lRInsureContModel.ReInsuranceContTitle = "";
                 lRInsureContModel.MainReInsuranceContNo = currentReInsuranceContNo;//主合同号码 
                 lRInsureContModel.ContOrAmendmentType = "合同".Equals(model.ContOrAmendmentType) ? "1" : "2";
                 lRInsureContModel.ContAttribute = "1";

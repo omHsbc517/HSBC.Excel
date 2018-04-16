@@ -84,7 +84,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     var reinsurerCode = reinsurer == null ? string.Empty : reinsurer.ReinsurerCode;
                     lrAccountModel.TransactionNo = CommFuns.GetTransactionNo(i + 1, dateyyyymm);
                     lrAccountModel.CompanyCode = origanizationCode;
-                    lrAccountModel.AccountID = lRInsureContModel.MainReInsuranceContNo + dateyyyymm.Substring(0, 4);//账单编号
+                    lrAccountModel.AccountID = lRInsureContModel.MainReInsuranceContNo + dateyyyymm.Substring(0, 6);//账单编号
                     lrAccountModel.AccountingPeriodfrom = Convert.ToDateTime(dateyyyymm.Substring(0, 4) + "-" + dateyyyymm.Substring(4, 2) + "-01").ToString("yyyy/MM/dd");
                     lrAccountModel.AccountingPeriodto = Convert.ToDateTime(dateyyyymm.Substring(0, 4) + "-" + dateyyyymm.Substring(4, 2) + "-01").AddMonths(1).AddDays(-1).ToString("yyyy/MM/dd");
                     lrAccountModel.ReinsurerCode = reinsurerCode;
