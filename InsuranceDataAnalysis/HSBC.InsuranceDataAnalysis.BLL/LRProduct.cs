@@ -75,7 +75,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     foreach (var temp1 in tempList)
                     {
                         this.Test3(yearMonthDay, serialNumber, startRowIndex, temp, contractOrder,
-                            temp1.ProductCode, temp1.ProductEnName, temp1.ProductType,
+                            temp1.ProductCode, temp1.ProductName, temp1.ProductType,
                             temp1.TermType, contractInfoBusiness);
 
                         contractOrder += 1;
@@ -261,7 +261,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             {
                 productCodeFirstChar = temp.ProductCode.Trim().Substring(0, 1);
 
-                productCodeFirstChar = productCodeFirstChar.Equals("G") ? "01" : "02";
+                productCodeFirstChar = productCodeFirstChar.Equals("G") ? "02" : "01";
 
                 excelApp.SetCellValue(rowIndex, "J", productCodeFirstChar);
             }
@@ -368,7 +368,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             {
                 productCodeFirstChar = productCode.Trim().Substring(0, 1);
 
-                productCodeFirstChar = productCodeFirstChar.Equals("G") ? "01" : "02";
+                productCodeFirstChar = productCodeFirstChar.Equals("G") ? "02" : "01";
 
                 excelApp.SetCellValue(rowIndex, "J", productCodeFirstChar);
             }
