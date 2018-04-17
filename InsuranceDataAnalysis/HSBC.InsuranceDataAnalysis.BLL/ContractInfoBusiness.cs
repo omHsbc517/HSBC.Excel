@@ -1046,7 +1046,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 for (int i = 2; i <= allRows.Count; i++)
                 {
                     TEMP_LLClaimDetail tempModel = new TEMP_LLClaimDetail();
-
+                    tempModel.ClmCaseNo = excelApp.GetCell(i, "C").Value;
                     tempModel.PolicyNo = excelApp.GetCell(i, "G").Value;
                     tempModel.GetLiabilityCode = excelApp.GetCell(i, "M").Value;
                     tempModel.GetLiabilityName = excelApp.GetCell(i, "O").Value;
