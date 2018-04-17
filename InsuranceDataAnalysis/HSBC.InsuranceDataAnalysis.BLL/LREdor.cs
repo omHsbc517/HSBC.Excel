@@ -145,7 +145,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 //个人保单号
                 currentModel.PolicyNo = tempModel.PolicyNo;
-                if (businessModel.lstTEMP_LCInsureAccTrace.Where(A => A.PolicyNo == tempModel.PolicyNo).Count() == 0) { continue; }
+                if (businessModel.lstTEMP_LCPolTransaction.Where(A => A.PolicyNo == tempModel.PolicyNo).Count() == 0) { continue; }
 
                 //主附险性质代码
                 currentModel.MainProductFlag = this.GetMainProductFlag(tempModel.ProductCode);

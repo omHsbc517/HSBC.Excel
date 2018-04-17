@@ -111,7 +111,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         public List<RIMonthlyReportGroup> lstRIMonthlyReportGroup { get; set; }
 
         public List<TEMP_LCCont> lstTEMP_LCCont { get; set; }
-        public List<TEMP_LCInsureAccTrace> lstTEMP_LCInsureAccTrace { get; set; }
+        //public List<TEMP_LCInsureAccTrace> lstTEMP_LCInsureAccTrace { get; set; }
         public List<TEMP_LCPolTransaction> lstTEMP_LCPolTransaction { get; set; }
         public List<ClaimSheetModel> lstClaimSheetModel
         { get; set; }
@@ -140,7 +140,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         { get; set; }
 
 
-        public List<TEMP_LCGrpProduct> lstTEMP_LCGrpProduct { get; set; }
+        //public List<TEMP_LCGrpProduct> lstTEMP_LCGrpProduct { get; set; }
 
         public List<TEMP_LCProduct> lstTEMP_LCProduct { get; set; }
 
@@ -177,7 +177,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             lstInforceBusinessListing = new List<InforceBusinessListing>();
             lstRIMonthlyReportGroup = new List<RIMonthlyReportGroup>();
             lstTEMP_LCCont = new List<TEMP_LCCont>();//
-            lstTEMP_LCInsureAccTrace = new List<TEMP_LCInsureAccTrace>();
+            //lstTEMP_LCInsureAccTrace = new List<TEMP_LCInsureAccTrace>();
             lstTEMP_LCPolTransaction = new List<TEMP_LCPolTransaction>();
             lstClaimSheetModel = new List<ClaimSheetModel>();
             lstHR_LifeClaimSheetModel = new List<ClaimSheetModel>();
@@ -189,7 +189,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             lstTEMP_LLClaimDetail = new List<TEMP_LLClaimDetail>();
             lstTEMP_LLClaimPolicy = new List<TEMP_LLClaimPolicy>();
             lstTEMP_LLClaimInfo = new List<TEMP_LLClaimInfo>();
-            lstTEMP_LCGrpProduct = new List<TEMP_LCGrpProduct>();
+            //lstTEMP_LCGrpProduct = new List<TEMP_LCGrpProduct>();
             lstTEMP_LCProduct = new List<TEMP_LCProduct>();
             lstTEMP_LCInsureAcc = new List<TEMP_LCInsureAcc>();
             lstTEMP_LCInsured = new List<TEMP_LCInsured>();
@@ -215,7 +215,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             GetDataFromTEMPLCProductGroup(inputFilePath + @"\group\LCProduct_Group.xlsx");
             this.GetLCGrpContGroup(inputFilePath + @"\group\LCGrpCont_Group.xlsx");
             this.GetDataFromlstLCInsuredGroup(inputFilePath + @"\group\LCInsured_Group.xlsx");
-            GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
+            //GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
             GetTEMP_LCPolTransactionData(InformationExcelPath + @"\TEMP_LCPolTransaction.xlsx");
             GetTEMP_LLClaimDetailData(InformationExcelPath + @"\TEMP_LLClaimDetail.xlsx");
             GetLLClaimDetailGroupData(InformationExcelPath + @"\group\LLClaimDetail_Group.xlsx");
@@ -225,7 +225,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             GetDataFromTEMPLCInsureAcc(InformationExcelPath + @"\TEMP_LCInsureAcc.xlsx");
             GetDataFromTEMPLCProduct(InformationExcelPath + @"\TEMP_LCProduct.xlsx");
             GetDataFromTEMPLCCont(InformationExcelPath + @"\TEMP_LCCont.xlsx");
-            GetDataFromTEMPLCGrpProduct(InformationExcelPath + @"\TEMP_LCGrpProduct.xlsx");
+            //GetDataFromTEMPLCGrpProduct(InformationExcelPath + @"\TEMP_LCGrpProduct.xlsx");
             ProcessLogProxy.SuccessMessage("Get excel information Success");
 
         }
@@ -952,41 +952,41 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         /// 1.6.5 TEMP_LCInsureAccTrace
         /// </summary>
         /// <param name="excelPath"></param>
-        private void GetTEMP_LCInsureAccTraceData(string excelPath)
-        {
-            try
-            {
-                ProcessLogProxy.Normal("Start to get TEMP_LCInsureAccTrace excel information");
-                CheckExcelFile(excelPath);
-                excelApp.OpenExcel(excelPath, true);
-                excelApp.SelectSheet("Sheet1");
-                var allRows = excelApp.GetSheetByRow();
-                int riMonthlyReportGroupCount = allRows.Count;
-                if (riMonthlyReportGroupCount > 1)
-                {
-                    for (int i = 2; i <= riMonthlyReportGroupCount; i++)
-                    {
-                        TEMP_LCInsureAccTrace tempModel = new TEMP_LCInsureAccTrace();
+        //private void GetTEMP_LCInsureAccTraceData(string excelPath)
+        //{
+        //    try
+        //    {
+        //        ProcessLogProxy.Normal("Start to get TEMP_LCInsureAccTrace excel information");
+        //        CheckExcelFile(excelPath);
+        //        excelApp.OpenExcel(excelPath, true);
+        //        excelApp.SelectSheet("Sheet1");
+        //        var allRows = excelApp.GetSheetByRow();
+        //        int riMonthlyReportGroupCount = allRows.Count;
+        //        if (riMonthlyReportGroupCount > 1)
+        //        {
+        //            for (int i = 2; i <= riMonthlyReportGroupCount; i++)
+        //            {
+        //                TEMP_LCInsureAccTrace tempModel = new TEMP_LCInsureAccTrace();
 
-                        tempModel.PolicyNo = excelApp.GetCell(i, "F").Value;
-                        if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
-                        {
-                            break;
-                        }
-                        lstTEMP_LCInsureAccTrace.Add(tempModel);
-                    }
-                }
-                ProcessLogProxy.SuccessMessage("Get excel information Success");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                excelApp.CloseExcel();
-            }
-        }
+        //                tempModel.PolicyNo = excelApp.GetCell(i, "F").Value;
+        //                if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
+        //                {
+        //                    break;
+        //                }
+        //                lstTEMP_LCInsureAccTrace.Add(tempModel);
+        //            }
+        //        }
+        //        ProcessLogProxy.SuccessMessage("Get excel information Success");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        excelApp.CloseExcel();
+        //    }
+        //}
 
         /// <summary>
         /// 1.6.5 TEMP_LCPolTransaction
@@ -1204,41 +1204,41 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         }
 
         #region shangjunqi ADD
-        private void GetDataFromTEMPLCGrpProduct(string excelPath)
-        {
-            try
-            {
-                ProcessLogProxy.Normal("Start to get TEMPLCGrpProduct excel information");
-                CheckExcelFile(excelPath);
-                excelApp.OpenExcel(excelPath, true);
-                excelApp.SelectSheet("团体险种表");
-                var allRows = excelApp.GetSheetByRow();
+        //private void GetDataFromTEMPLCGrpProduct(string excelPath)
+        //{
+        //    try
+        //    {
+        //        ProcessLogProxy.Normal("Start to get TEMPLCGrpProduct excel information");
+        //        CheckExcelFile(excelPath);
+        //        excelApp.OpenExcel(excelPath, true);
+        //        excelApp.SelectSheet("团体险种表");
+        //        var allRows = excelApp.GetSheetByRow();
 
-                int tempLCGrpProductCount = allRows.Count;
+        //        int tempLCGrpProductCount = allRows.Count;
 
-                if (tempLCGrpProductCount > 1)
-                {
-                    for (int i = 2; i <= tempLCGrpProductCount; i++)
-                    {
-                        TEMP_LCGrpProduct tempModel = new TEMP_LCGrpProduct();
+        //        if (tempLCGrpProductCount > 1)
+        //        {
+        //            for (int i = 2; i <= tempLCGrpProductCount; i++)
+        //            {
+        //                TEMP_LCGrpProduct tempModel = new TEMP_LCGrpProduct();
 
-                        tempModel.GrpProductNo = excelApp.GetCell(i, "F").Value;
+        //                tempModel.GrpProductNo = excelApp.GetCell(i, "F").Value;
 
-                        lstTEMP_LCGrpProduct.Add(tempModel);
-                    }
-                }
+        //                lstTEMP_LCGrpProduct.Add(tempModel);
+        //            }
+        //        }
 
-                ProcessLogProxy.SuccessMessage("Get excel information Success");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                excelApp.CloseExcel();
-            }
-        }
+        //        ProcessLogProxy.SuccessMessage("Get excel information Success");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        excelApp.CloseExcel();
+        //    }
+        //}
 
         private void GetDataFromTEMPLCCont(string excelPath)
         {

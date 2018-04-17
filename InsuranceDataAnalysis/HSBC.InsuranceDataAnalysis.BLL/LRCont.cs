@@ -131,8 +131,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.CompanyCode = CommFuns.OriganizationCode;
                     currentModel.GrpPolicyNo = tempModel.ChdrNumber;
 
-                    var tempLCGrpProduct = businessModel.lstTEMP_LCGrpProduct.Where(e => e.GrpPolicyNo == currentModel.GrpPolicyNo
-                    && e.ProductCode == tempModel.Prodtyp).FirstOrDefault();
+                    //var tempLCGrpProduct = businessModel.lstTEMP_LCGrpProduct.Where(e => e.GrpPolicyNo == currentModel.GrpPolicyNo
+                    //&& e.ProductCode == tempModel.Prodtyp).FirstOrDefault();
 
                     //若为团单则按右侧位置取数,inputFile: yyyymm\group\"RI Monthly report-GROUP.csv" -> Col F
                     //if (tempLCGrpProduct != null)
