@@ -155,7 +155,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         public List<ZaiBaoProductInfo> lstZaiBaoProductInfo { get; set; }
 
         public List<LCGrpContGroup> lstLCGrpContGroup { get; set; }
-        public List<TEMP_LLClaimDetail> lstLLClaimDetailGroup{ get; set; }
+        public List<TEMP_LLClaimDetail> lstLLClaimDetailGroup { get; set; }
 
         public ContractInfoBusiness()
         {
@@ -195,9 +195,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             lstTEMP_LCInsured = new List<TEMP_LCInsured>();
             lstZaiBaoProductInfo = new List<ZaiBaoProductInfo>();
             lstTEMP_LCProductGroup = new List<TEMP_LCProduct>();
-lstLCGrpContGroup = new List<LCGrpContGroup>(); lstLLClaimDetailGroup = new List<TEMP_LLClaimDetail>();
-lst_LCInsuredGroup = new List<TEMP_LCInsured>();
-  }
+            lstLCGrpContGroup = new List<LCGrpContGroup>();
+            lstLLClaimDetailGroup = new List<TEMP_LLClaimDetail>();
+            lst_LCInsuredGroup = new List<TEMP_LCInsured>();
+        }
 
         public void GetInformationDataFromExcel(string InformationExcelPath, string inputFilePath)
         {
