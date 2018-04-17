@@ -113,7 +113,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 ProcessLogProxy.Error(ex.Message);
                 ProcessLogProxy.Error("Build fail");
             }
-          
+
         }
 
 
@@ -134,56 +134,47 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     var tempLCGrpProduct = businessModel.lstTEMP_LCGrpProduct.Where(e => e.GrpPolicyNo == currentModel.GrpPolicyNo
                     && e.ProductCode == tempModel.Prodtyp).FirstOrDefault();
 
-                    if (tempLCGrpProduct != null)
-                    {
-                        currentModel.GrpProductNo = tempLCGrpProduct.GrpProductNo;
-                    }
-                    else
-                    {
-                        currentModel.GrpProductNo = string.Empty;
-                    }
+                    //若为团单则按右侧位置取数,inputFile: yyyymm\group\"RI Monthly report-GROUP.csv" -> Col F
+                    //if (tempLCGrpProduct != null)
+                    //{
+                    //    currentModel.GrpProductNo = tempLCGrpProduct.GrpProductNo;
+                    //}
+                    //else
+                    //{
+                    //    currentModel.GrpProductNo = string.Empty;
+                    //}
+
+                    currentModel.GrpProductNo = tempModel.Prodtyp;
 
                     //个人保单号
                     var tempLCCont = businessModel.lstTEMP_LCCont.Where(e => e.PolicyNo.Equals(currentModel.GrpPolicyNo)).FirstOrDefault();
-                    currentModel.PolicyNo = tempLCCont == null ? string.Empty : tempLCCont.PolicyNo;
+                    currentModel.PolicyNo = tempLCCont == null ? ConfigInformation.TextValue : (tempLCCont.PolicyNo + "00").PadLeft(7, '0');
 
                     // 个单保险险种号码
-                    var tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo) &&
-                     e.ProductCode.Equal(tempModel.Prodtyp)).FirstOrDefault();
-
-                    currentModel.ProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.ProductNo;
+                    currentModel.ProductNo = tempModel.Prodtyp;
 
                     //保单团个性质代码
                     currentModel.GPFlag = "02";
 
                     // 主险保险险种号码
+                    var tempLCProduct = businessModel.lstTEMP_LCProductGroup.Where(e =>
+                    e.GrpPolicyNo.Equals(currentModel.GrpPolicyNo) && 
+                    e.PolicyNo.Equal(currentModel.PolicyNo) &&
+                    e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
+
                     currentModel.MainProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductNo;
 
                     //主附险性质代码
                     currentModel.MainProductFlag = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductFlag;
 
                     //产品编码
-                    currentModel.ProductCode = tempModel.Prodtyp;
+                    string tempProductCode = string.IsNullOrWhiteSpace(tempModel.ProductCode) ? string.Empty : tempModel.ProductCode.Trim();
+                    currentModel.ProductCode = (tempProductCode.Equals("GIP") 
+                        || tempProductCode.Equals("GIP")) ? "GHB" : tempProductCode;
 
                     //责任代码
-                    var templstZaiBaoProductInfo2 = businessModel.lstZaiBaoProductInfo.Where(e => e.ProductCode.Equals(tempModel.ProductCode)).FirstOrDefault();
-
-                    if (templstZaiBaoProductInfo2 != null)
-                    {
-                        if (templstZaiBaoProductInfo2.LiabilityCode.Equals("GIP")
-                            || templstZaiBaoProductInfo2.LiabilityCode.Equals("GOP"))
-                        {
-                            currentModel.LiabilityCode = "Death";
-                        }
-                        else
-                        {
-                            currentModel.LiabilityCode = templstZaiBaoProductInfo2.LiabilityCode;
-                        }
-                    }
-                    else
-                    {
-                        currentModel.LiabilityCode = string.Empty;
-                    }
+                    //var templstZaiBaoProductInfo2 = businessModel.lstZaiBaoProductInfo.Where(e => e.ProductCode.Equals(tempModel.ProductCode)).FirstOrDefault();
+                    currentModel.LiabilityCode = Common.GetLiabilityCode(currentModel.ProductCode);
 
                     //责任名称
                     var tempCategory = PersonalLiabilityCategory.LstCategory.Where(e => e.LiabilityCategoryCode.Equal(tempModel.ProductCode)).FirstOrDefault();
@@ -193,7 +184,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.Classification = tempCategory == null ? string.Empty : tempCategory.LiabilityCategoryCode;
 
                     // 续期续保次数
-                    currentModel.RenewalTimes = tempLCCont == null ? string.Empty : tempLCCont.RenewalTimes;
+                    currentModel.RenewalTimes = "0";
 
                     //保险期限类型
                     var tempProductModel = businessModel.lstTEMP_LMProductModel.Where(e => e.ProductCode == currentModel.ProductCode).FirstOrDefault();

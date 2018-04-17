@@ -15,6 +15,37 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             }
         }
 
+        public static string GetLiabilityCode(string productCode)
+        {
+            string liabilityCode = string.Empty;
+            productCode = string.IsNullOrWhiteSpace(productCode) ? string.Empty : productCode.Trim().ToUpper();
+            switch (productCode)
+            {
+                case "GTL":
+                    liabilityCode = "Death";
+                    break;
+                case "GAD":
+                    liabilityCode = "ADB";
+                    break;
+                case "GMI":
+                    liabilityCode = "MI";
+                    break;
+                case "GAM":
+                    liabilityCode = "Medical";
+                    break;
+                case "GHB":
+                    liabilityCode = "Medical";
+                    break;
+                case "GHC":
+                    liabilityCode = "Medical";
+                    break;
+                default:
+                    break;
+            }
+
+            return liabilityCode;
+        }
+
         public static bool CheckEventType(string yearMonthDay, string effectiveDate)
         {
             effectiveDate = effectiveDate.Replace("-", string.Empty).Substring(0, 6);
