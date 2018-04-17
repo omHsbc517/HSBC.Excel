@@ -148,6 +148,32 @@ namespace HSBC.InsuranceDataAnalysis.Utils
         }
 
 
-     
+        public static string GetMainProductFlag(string productCode)
+        {
+            string mainProductFlag = string.Empty;
+            productCode = string.IsNullOrWhiteSpace(productCode) ? string.Empty : productCode.Trim().ToUpper();
+            switch (productCode)
+            {
+                case "HC2":
+                    mainProductFlag = "2";
+                    break;
+                case "MI1":
+                    mainProductFlag = "2";
+                    break;
+                case "MI2":
+                    mainProductFlag = "2";
+                    break;
+                case "MI3":
+                    mainProductFlag = "2";
+                    break;
+                case "MM1":
+                    mainProductFlag = "2";
+                    break;
+                default:
+                    mainProductFlag = "1";
+                    break;
+            }
+            return mainProductFlag;
+        }
     }
 }
