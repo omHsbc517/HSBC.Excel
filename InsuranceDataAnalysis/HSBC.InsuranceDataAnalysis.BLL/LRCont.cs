@@ -148,7 +148,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                     //个人保单号
                     var tempLCCont = businessModel.lstTEMP_LCCont.Where(e => e.PolicyNo.Equals(currentModel.GrpPolicyNo)).FirstOrDefault();
-                    currentModel.PolicyNo = tempLCCont == null ? ConfigInformation.TextValue : (tempLCCont.PolicyNo + "00").PadLeft(7, '0');
+                    currentModel.PolicyNo = tempLCCont == null ? string.Empty : (tempLCCont.PolicyNo + "00").PadLeft(7, '0');
 
                     // 个单保险险种号码
                     currentModel.ProductNo = tempModel.Prodtyp;
@@ -157,19 +157,19 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.GPFlag = "02";
 
                     // 主险保险险种号码
-                    var tempLCProduct = businessModel.lstTEMP_LCProductGroup.Where(e =>
-                    e.GrpPolicyNo.Equals(currentModel.GrpPolicyNo) && 
+                    var tempLCProductGroup = businessModel.lstTEMP_LCProductGroup.Where(e =>
+                    e.GrpPolicyNo.Equals(currentModel.GrpPolicyNo) &&
                     e.PolicyNo.Equal(currentModel.PolicyNo) &&
                     e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
 
-                    currentModel.MainProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductNo;
+                    currentModel.MainProductNo = tempLCProductGroup == null ? string.Empty : tempLCProductGroup.MainProductNo;
 
                     //主附险性质代码
-                    currentModel.MainProductFlag = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductFlag;
+                    currentModel.MainProductFlag = tempLCProductGroup == null ? string.Empty : tempLCProductGroup.MainProductFlag;
 
                     //产品编码
                     string tempProductCode = string.IsNullOrWhiteSpace(tempModel.ProductCode) ? string.Empty : tempModel.ProductCode.Trim();
-                    currentModel.ProductCode = (tempProductCode.Equals("GIP") 
+                    currentModel.ProductCode = (tempProductCode.Equals("GIP")
                         || tempProductCode.Equals("GIP")) ? "GHB" : tempProductCode;
 
                     //责任代码
@@ -191,14 +191,15 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.TermType = tempProductModel == null ? string.Empty : tempProductModel.TermType;
 
                     //管理机构代码
-                    currentModel.ManageCom = tempLCCont == null ? string.Empty : tempLCCont.ManageCom;
+                    var tempLcGrpContGroup = businessModel.lstLCGrpContGroup.Where(e => e.GrpPolicyNo.Equal(currentModel.GrpPolicyNo)).FirstOrDefault();
+                    currentModel.ManageCom = tempLcGrpContGroup == null ? ConfigInformation.TextValue : tempLcGrpContGroup.ManageCom;
 
                     //签单日期
                     DateTime tempSignDate;
                     string strSignDate = string.Empty;
-                    if (tempLCCont != null)
+                    if (tempLcGrpContGroup != null)
                     {
-                        bool convertResult = DateTime.TryParse(tempLCCont.SignDate, out tempSignDate);
+                        bool convertResult = DateTime.TryParse(tempLcGrpContGroup.SignDate, out tempSignDate);
 
                         if (convertResult)
                         {
@@ -234,7 +235,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     }
 
                     //保险责任生效日期
-                    currentModel.EffDate = tempLCProduct == null ? string.Empty : tempLCProduct.EffDate;
+                    currentModel.EffDate = tempLcGrpContGroup == null ? string.Empty : tempLcGrpContGroup.EffDate;
 
                     //PolYear 所跑数据年份减去签单日期年份
                     if (!string.IsNullOrEmpty(strSignDate))
@@ -249,41 +250,40 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     }
 
                     //保险责任终止日期
-                    currentModel.InvalidDate = tempLCProduct == null ? string.Empty : tempLCProduct.InvalidDate;
+                    currentModel.InvalidDate = tempLCProductGroup == null ? string.Empty : tempLCProductGroup.InvalidDate;
 
                     //核保结论代码
-                    currentModel.UWConclusion = tempLCProduct == null ? string.Empty : tempLCProduct.UWConclusion;
+                    currentModel.UWConclusion = "10";
 
                     //保单状态代码
-                    currentModel.PolStatus = "01";
+                    currentModel.PolStatus = "03";
 
                     //保单险种状态代码
-                    currentModel.Status = "01";
+                    currentModel.Status = "03";
 
                     //基本保额
                     currentModel.BasicSumInsured = Common.ConvertToStrToStrDecimal(tempModel.SumSi);
 
                     // 风险保额
-                    currentModel.RiskAmnt = ConfigInformation.TextValue;
+                    currentModel.RiskAmnt = ConfigInformation.NumberValue;
 
                     //保费
                     currentModel.Premium = Common.ConvertToStrToStrDecimal(tempModel.Pprem);
 
                     //保险账户价值
-                    var tempInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
-                    && e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
+                    //var tempInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
+                    //&& e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
 
-                    currentModel.AccountValue = tempInsureAcc == null ?
-                        string.Empty : Common.ConvertToStrToStrDecimal(tempInsureAcc.AccountValue);
+                    currentModel.AccountValue = "0";
 
                     //临分标记
-                    currentModel.FacultativeFlag = ConfigInformation.TextValue;
+                    currentModel.FacultativeFlag = string.Empty;
 
                     //无名单标志
                     currentModel.AnonymousFlag = "0";
 
                     //豁免险标志
-                    currentModel.WaiverFlag = "否";
+                    currentModel.WaiverFlag = "0";
 
                     //所需豁免剩余保费
                     currentModel.WaiverPrem = "0";
@@ -298,36 +298,36 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.InsuredNo = tempModel.Clntnum;
 
                     //被保人姓名
-                    var tempInsured = businessModel.lstTEMP_LCInsured.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
-                    && e.InsuredNo.Equal(currentModel.InsuredNo)).FirstOrDefault();
-                    currentModel.InsuredName = tempInsured == null ? string.Empty : tempInsured.InsuredName;
+                    var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
+                    && e.GrpPolicyNo.Equal(currentModel.GrpPolicyNo)).FirstOrDefault();
+                    currentModel.InsuredName = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredName;
 
                     //被保人性别
-                    currentModel.InsuredSex = tempInsured == null ? string.Empty : tempInsured.InsuredSex;
+                    currentModel.InsuredSex = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredSex;
 
                     //被保人证件类型
-                    currentModel.InsuredCertType = tempInsured == null ? string.Empty : tempInsured.InsuredCertType;
+                    currentModel.InsuredCertType = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredCertType;
 
                     //被保人证件编码
-                    currentModel.InsuredCertNo = tempInsured == null ? string.Empty : tempInsured.InsuredCertNo;
+                    currentModel.InsuredCertNo = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredCertNo;
 
                     //职业代码
-                    currentModel.OccupationType = tempInsured == null ? string.Empty : tempInsured.OccupationType;
+                    currentModel.OccupationType = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.OccupationType;
 
                     //投保年龄
-                    currentModel.AppntAge = tempInsured == null ? string.Empty : tempInsured.AppAge;
+                    currentModel.AppntAge = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.AppAge;
 
                     //当前年龄
                     currentModel.PreAge = ConfigInformation.TextValue;
 
                     //职业加费金额
-                    currentModel.ProfessionalFee = Common.ConvertToStrToStrDecimal(tempLCProduct.ProfessionalFee);
+                    currentModel.ProfessionalFee = "0";
 
                     //次标准体加费金额
-                    currentModel.SubStandardFee = Common.ConvertToStrToStrDecimal(tempLCProduct.SubStandardFee);
+                    currentModel.SubStandardFee = "0";
 
                     //EM加点
-                    currentModel.EMRate = Common.ConvertToStrToStrDecimal(tempLCProduct.EMRate);
+                    currentModel.EMRate = Common.ConvertToStrToStrDecimal(tempLCProductGroup.EMRate);
 
                     //建工险标志
                     currentModel.ProjectFlag = ConfigInformation.TextValue;
@@ -415,11 +415,17 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.GrpProductNo = string.Empty;
 
                     //个人保单号
-                    currentModel.PolicyNo = tempModel.PolicyNo;
+                    string tempPolicyNo = string.IsNullOrWhiteSpace(tempModel.PolicyNo) ? string.Empty : tempModel.PolicyNo.Trim();
+                    currentModel.PolicyNo = tempPolicyNo.PadLeft(8,'0');
+
+                    //主附险性质代码
+                    currentModel.MainProductFlag = this.GetMainProductFlag(tempModel.ProductCode);
 
                     // 个单保险险种号码
-                    var tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo) &&
-                     e.ProductCode.Equal(tempModel.ProductCode)).FirstOrDefault();
+                    var tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e =>
+                    e.PolicyNo.Equal(currentModel.PolicyNo) &&
+                     e.ProductCode.Equal(tempModel.ProductCode) && 
+                     e.MainProductFlag.Equals(currentModel.MainProductFlag)).FirstOrDefault();
 
                     currentModel.ProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.ProductNo;
 
@@ -427,13 +433,14 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.GPFlag = "01";
 
                     // 主险保险险种号码
+                    tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e =>
+                   e.PolicyNo.Equal(currentModel.PolicyNo) &&
+                    e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
+
                     currentModel.MainProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductNo;
 
-                    //主附险性质代码
-                    currentModel.MainProductFlag = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductFlag;
-
                     //产品编码
-                    currentModel.ProductCode = tempLCProduct == null ? string.Empty : tempModel.ProductCode;
+                    currentModel.ProductCode = tempModel.ProductCode;
 
                     //责任代码
                     currentModel.LiabilityCode = tempModel.Coverage1;
@@ -534,11 +541,20 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                         Common.ConvertToStrToStrDecimal(tempLCCont.Premium);
 
                     //保险账户价值
-                    var tempInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
-                    && e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
+                    var tempLstInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
+                    && e.ProductNo.Equal(currentModel.ProductNo));
 
-                    currentModel.AccountValue = tempInsureAcc == null ?
-                        string.Empty : Common.ConvertToStrToStrDecimal(tempInsureAcc.AccountValue);
+                    decimal tempAccountTotal = 0m;
+                    foreach (var temp in tempLstInsureAcc)
+                    {
+                        if (!string.IsNullOrWhiteSpace(temp.AccountValue))
+                        {
+                            tempAccountTotal += decimal.Parse(temp.AccountValue.Trim());
+                        }
+                    }
+
+                   string  strTempAccountTotal = tempAccountTotal.ToString("0.00");
+                    currentModel.AccountValue = strTempAccountTotal;
 
                     //临分标记
                     if (tempModel.IsMrHealth)
@@ -554,7 +570,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.AnonymousFlag = "0";
 
                     //豁免险标志
-                    currentModel.WaiverFlag = "否";
+                    currentModel.WaiverFlag = "0s";
 
                     //所需豁免剩余保费
                     currentModel.WaiverPrem = "0";
@@ -599,7 +615,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                     //EM加点
                     currentModel.EMRate = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.EMRate);
-
+                    
                     //建工险标志
                     currentModel.ProjectFlag = ConfigInformation.TextValue;
 
@@ -696,7 +712,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             }
         }
 
-        public string GetReinsuranceAmnt(string sumReinsured, string sumReinsured2)
+        private string GetReinsuranceAmnt(string sumReinsured, string sumReinsured2)
         {
             string result = string.Empty;
 
@@ -713,6 +729,34 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             result = (decimal.Parse(sumReinsured.Trim()) + decimal.Parse(sumReinsured2.Trim())).ToString("0.00");
 
             return result;
+        }
+
+        private string GetMainProductFlag(string productCode)
+        {
+            string mainProductFlag = string.Empty;
+            productCode = string.IsNullOrWhiteSpace(productCode) ? string.Empty : productCode.Trim().ToUpper();
+            switch (productCode)
+            {
+                case "HC2":
+                    mainProductFlag = "2";
+                    break;
+                case "MI1":
+                    mainProductFlag = "2";
+                    break;
+                case "MI2":
+                    mainProductFlag = "2";
+                    break;
+                case "MI3":
+                    mainProductFlag = "2";
+                    break;
+                case "MM1":
+                    mainProductFlag = "2";
+                    break;
+                default:
+                    mainProductFlag = "1";
+                    break;
+            }
+            return mainProductFlag;
         }
     }
 }

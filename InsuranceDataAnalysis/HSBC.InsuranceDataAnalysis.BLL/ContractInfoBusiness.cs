@@ -150,6 +150,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
         public List<TEMP_LCInsured> lstTEMP_LCInsured { get; set; }
 
+        public List<TEMP_LCInsured> lst_LCInsuredGroup { get; set; }
+
         public List<ZaiBaoProductInfo> lstZaiBaoProductInfo { get; set; }
 
         public List<LCGrpContGroup> lstLCGrpContGroup { get; set; }
@@ -192,6 +194,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             lstTEMP_LCInsured = new List<TEMP_LCInsured>();
             lstZaiBaoProductInfo = new List<ZaiBaoProductInfo>();
             lstTEMP_LCProductGroup = new List<TEMP_LCProduct>();
+            lstLCGrpContGroup = new List<LCGrpContGroup>();
+            lst_LCInsuredGroup = new List<TEMP_LCInsured>();
         }
 
         public void GetInformationDataFromExcel(string InformationExcelPath, string inputFilePath)
@@ -207,6 +211,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             GetDataRIMonthlyReportGroup(inputFilePath + @"\group\RI Monthly report-GROUP.csv");
             GetRIClaimReportGroupData(inputFilePath + @"\group\RI Claim report-GROUP.csv");
             GetDataFromTEMPLCProductGroup(inputFilePath + @"\group\LCProduct_Group.xlsx");
+            this.GetLCGrpContGroup(inputFilePath + @"\group\LCGrpCont_Group.xlsx");
+            this.GetDataFromlstLCInsuredGroup(inputFilePath + @"\group\LCInsured_Group.xlsx");
             GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
             GetTEMP_LCPolTransactionData(InformationExcelPath + @"\TEMP_LCPolTransaction.xlsx");
             GetTEMP_LLClaimDetailData(InformationExcelPath + @"\TEMP_LLClaimDetail.xlsx");
@@ -1311,32 +1317,24 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 var _excel = new ExcelHelper();
                 ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
                 lstTEMP_LCInsured = _excel.Read<TEMP_LCInsured>(excel).ToList();
+                excel.Close();
+                ProcessLogProxy.SuccessMessage("Get excel information Success");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-                //CheckExcelFile(excelPath);
-                //excelApp.OpenExcel(excelPath, true);
-                //excelApp.SelectSheet("Sheet1");
-                //var allRows = excelApp.GetSheetByRow();
+        }
 
-                //int allRowCount = allRows.Count;
-
-                //if (allRowCount > 1)
-                //{
-                //    for (int i = 2; i <= allRowCount; i++)
-                //    {
-                //        TEMP_LCInsured tempModel = new TEMP_LCInsured();
-
-                //        tempModel.InsuredNo = excelApp.GetCell(i, "F").Value;
-                //        tempModel.PolicyNo = excelApp.GetCell(i, "E").Value;
-                //        tempModel.InsuredName = excelApp.GetCell(i, "L").Value;
-                //        tempModel.InsuredSex = excelApp.GetCell(i, "M").Value;
-                //        tempModel.InsuredCertType = excelApp.GetCell(i, "O").Value;
-                //        tempModel.InsuredCertNo = excelApp.GetCell(i, "P").Value;
-                //        tempModel.OccupationType = excelApp.GetCell(i, "AD").Value;
-                //        tempModel.AppntAge = excelApp.GetCell(i, "Q").Value;
-
-                //        lstTEMP_LCInsured.Add(tempModel);
-                //    }
-                //}
+        private void GetDataFromlstLCInsuredGroup(string excelPath)
+        {
+            try
+            {
+                ProcessLogProxy.Normal("Start to get LCInsured_Group excel information");
+                var _excel = new ExcelHelper();
+                ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
+                lst_LCInsuredGroup = _excel.Read<TEMP_LCInsured>(excel).ToList();
                 excel.Close();
                 ProcessLogProxy.SuccessMessage("Get excel information Success");
             }

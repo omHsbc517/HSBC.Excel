@@ -710,8 +710,5 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             var date = yyyymm.Substring(0, 4) + "-" + yyyymm.Substring(4, 2) + "-01";
             return Convert.ToDateTime(date).AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd");
         }
-
-
-
     }
 }
