@@ -15,6 +15,7 @@ namespace HSBC.InsuranceDataAnalysis.ExcelCommon.DataValidation
            { typeof (TEMP_LCInsured),SetMapping<TEMP_LCInsured>()},
             { typeof (TEMP_LCCont),SetMapping<TEMP_LCCont>()},
              { typeof (TEMP_LCInsureAcc),SetMapping<TEMP_LCInsureAcc>()},
+              { typeof (LCGrpContGroup),SetMapping<LCGrpContGroup>()},
               { typeof (TEMP_LCPolTransaction),SetMapping<TEMP_LCPolTransaction>()}
 
         };

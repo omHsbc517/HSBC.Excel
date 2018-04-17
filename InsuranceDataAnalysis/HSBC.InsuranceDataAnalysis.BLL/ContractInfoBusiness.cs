@@ -218,7 +218,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             //GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
             GetTEMP_LCPolTransactionData(InformationExcelPath + @"\TEMP_LCPolTransaction.xlsx");
             GetTEMP_LLClaimDetailData(InformationExcelPath + @"\TEMP_LLClaimDetail.xlsx");
-            GetLLClaimDetailGroupData(InformationExcelPath + @"\group\LLClaimDetail_Group.xlsx");
+            GetLLClaimDetailGroupData(inputFilePath + @"\group\LLClaimDetail_Group.xlsx");
             GetTEMP_LLClaimPolicyData(InformationExcelPath + @"\TEMP_LLClaimPolicy.xlsx");
             GetTEMP_LLClaimInfoData(InformationExcelPath + @"\TEMP_LLClaimInfo.xlsx");
             GetDataFromlstTEMPLCInsured(InformationExcelPath + @"\TEMP_LCInsured.xlsx");
@@ -1170,7 +1170,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         {
             try
             {
-                ProcessLogProxy.Normal("Start to get TEMP_LLClaimDetail excel information");
+                ProcessLogProxy.Normal("Start to get LLClaimDetail_Group excel information");
                 CheckExcelFile(excelPath);
                 excelApp.OpenExcel(excelPath, true);
                 excelApp.SelectSheet("Sheet1");

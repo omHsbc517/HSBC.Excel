@@ -581,7 +581,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.SubStandardFee = "0";
 
                 //EM加点
-                currentModel.EMRate = Common.ConvertToStrToStrDecimal(tempLCProductGroup.EMRate);
+                currentModel.EMRate = tempLCProductGroup == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProductGroup.EMRate);
 
                 //建工险标志
                 currentModel.ProjectFlag = ConfigInformation.TextValue;
