@@ -44,6 +44,7 @@
     <Compile Include="HugeDisasterModel.cs" />
     <Compile Include="InforceBusinessListing.cs" />
     <Compile Include="InsuranceReinsuranceStatement.cs" />
+    <Compile Include="LCGrpContGroup.cs" />
     <Compile Include="LRAccountModel.cs" />
     <Compile Include="LRClaimModel.cs" />
     <Compile Include="LRContModel.cs" />

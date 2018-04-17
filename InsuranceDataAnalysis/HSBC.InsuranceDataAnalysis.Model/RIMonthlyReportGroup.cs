@@ -13,12 +13,17 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public string ChdrNumber { get; set; }
 
         /// <summary>
+        /// column d
+        /// </summary>
+        public string Mbrno { get; set; }
+
+        /// <summary>
         /// column F   保险产品编码
         /// </summary>
         public string Prodtyp { get; set; }
 
         /// <summary>
-        /// un decide property
+        /// un decide property  BE
         /// </summary>
         public string ProductCode { get; set; }
 

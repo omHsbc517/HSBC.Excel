@@ -144,11 +144,15 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
         public List<TEMP_LCProduct> lstTEMP_LCProduct { get; set; }
 
+        public List<TEMP_LCProduct> lstTEMP_LCProductGroup { get; set; }
+
         public List<TEMP_LCInsureAcc> lstTEMP_LCInsureAcc { get; set; }
 
         public List<TEMP_LCInsured> lstTEMP_LCInsured { get; set; }
 
         public List<ZaiBaoProductInfo> lstZaiBaoProductInfo { get; set; }
+
+        public List<LCGrpContGroup> lstLCGrpContGroup { get; set; }
 
         public ContractInfoBusiness()
         {
@@ -187,6 +191,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             lstTEMP_LCInsureAcc = new List<TEMP_LCInsureAcc>();
             lstTEMP_LCInsured = new List<TEMP_LCInsured>();
             lstZaiBaoProductInfo = new List<ZaiBaoProductInfo>();
+            lstTEMP_LCProductGroup = new List<TEMP_LCProduct>();
         }
 
         public void GetInformationDataFromExcel(string InformationExcelPath, string inputFilePath)
@@ -201,6 +206,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             GetPolicyAlternationReportGroupData(inputFilePath + @"\group\Policy alternation report-GROUP.csv");
             GetDataRIMonthlyReportGroup(inputFilePath + @"\group\RI Monthly report-GROUP.csv");
             GetRIClaimReportGroupData(inputFilePath + @"\group\RI Claim report-GROUP.csv");
+            GetDataFromTEMPLCProductGroup(inputFilePath + @"\group\LCProduct_Group.xlsx");
             GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
             GetTEMP_LCPolTransactionData(InformationExcelPath + @"\TEMP_LCPolTransaction.xlsx");
             GetTEMP_LLClaimDetailData(InformationExcelPath + @"\TEMP_LLClaimDetail.xlsx");
@@ -903,6 +909,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                         RIMonthlyReportGroup tempModel = new RIMonthlyReportGroup();
 
                         tempModel.ChdrNumber = excelApp.GetCell(i, "C").Value;
+                        tempModel.Mbrno = excelApp.GetCell(i, "D").Value;
                         tempModel.Prodtyp = excelApp.GetCell(i, "F").Value;
 
                         tempModel.ProductCode = excelApp.GetCell(i, "BE").Value;
@@ -1009,6 +1016,18 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 throw ex;
             }
 
+        }
+
+        private void GetLCGrpContGroup(string excelPath)
+        {
+            ProcessLogProxy.Normal("Start to get LCGrpContGroup excel information");
+            CheckExcelFile(excelPath);
+
+            var _excel = new ExcelHelper();
+            ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
+            lstLCGrpContGroup = _excel.Read<LCGrpContGroup>(excel).ToList();
+            excel.Close();
+            ProcessLogProxy.SuccessMessage("Get excel information Success");
         }
 
         /// <summary>
@@ -1218,41 +1237,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 var _excel = new ExcelHelper();
                 ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
                 lstTEMP_LCProduct = _excel.Read<TEMP_LCProduct>(excel).ToList();
-
-                //CheckExcelFile(excelPath);
-                //excelApp.OpenExcel(excelPath, true);
-                //excelApp.SelectSheet("Sheet1");
-                //var allRows = excelApp.GetSheetByRow();
-
-                //int allRowCount = allRows.Count;
-
-                //if (allRowCount > 1)
-                //{
-                //    for (int i = 2; i <= allRowCount; i++)
-                //    {
-                //        TEMP_LCProduct tempModel = new TEMP_LCProduct();
-
-                //        tempModel.GrpPolicyNo = excelApp.GetCell(i, "C").Value;
-                //        tempModel.PolicyNo = excelApp.GetCell(i, "D").Value;
-                //        tempModel.ProductNo = excelApp.GetCell(i, "E").Value;
-
-                //        tempModel.ProductCode = excelApp.GetCell(i, "J").Value;
-                //        tempModel.MainProductNo = excelApp.GetCell(i, "H").Value;
-                //        tempModel.MainProductFlag = excelApp.GetCell(i, "I").Value;
-
-                //        tempModel.EffDate = this.GetDateStr(excelApp.GetCell(i, "L").Value);
-                //        tempModel.InvalidDate = this.GetDateStr(excelApp.GetCell(i, "T").Value);
-                //        tempModel.UWConclusion = excelApp.GetCell(i, "BB").Value;
-                //        tempModel.ProfessionalFee = excelApp.GetCell(i, "BM").Value;
-                //        tempModel.SubStandardFee = excelApp.GetCell(i, "BN").Value;
-                //        tempModel.EMRate = excelApp.GetCell(i, "BO").Value;
-
-                //        tempModel.BasicSumInsured = excelApp.GetCell(i, "AL").Value;
-                //        tempModel.RiskAmnt = excelApp.GetCell(i, "AM").Value;
-
-                //        lstTEMP_LCProduct.Add(tempModel);
-                //    }
-                //}
                 excel.Close();
                 ProcessLogProxy.SuccessMessage("Get excel information Success");
             }
@@ -1260,7 +1244,24 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             {
                 throw ex;
             }
+        }
 
+        private void GetDataFromTEMPLCProductGroup(string excelPath)
+        {
+            try
+            {
+                ProcessLogProxy.Normal("Start to get TEMPLCProductGroup excel information");
+
+                var _excel = new ExcelHelper();
+                ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
+                lstTEMP_LCProductGroup = _excel.Read<TEMP_LCProduct>(excel).ToList();
+                excel.Close();
+                ProcessLogProxy.SuccessMessage("Get excel information Success");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void GetDataFromTEMPLCInsureAcc(string excelPath)
@@ -1301,8 +1302,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 throw ex;
             }
         }
-
-
 
         private void GetDataFromlstTEMPLCInsured(string excelPath)
         {
