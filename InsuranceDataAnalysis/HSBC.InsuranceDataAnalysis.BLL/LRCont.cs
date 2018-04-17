@@ -327,7 +327,14 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.SubStandardFee = "0";
 
                     //EM加点
-                    currentModel.EMRate = Common.ConvertToStrToStrDecimal(tempLCProductGroup.EMRate);
+                    if (tempLCProductGroup != null)
+                    {
+                        currentModel.EMRate = Common.ConvertToStrToStrDecimal(tempLCProductGroup.EMRate);
+                    }
+                    else
+                    {
+                        currentModel.EMRate = string.Empty;
+                    }
 
                     //建工险标志
                     currentModel.ProjectFlag = ConfigInformation.TextValue;
@@ -472,7 +479,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                         if (convertResult)
                         {
-                            strSignDate = tempSignDate.ToString("yyyy-MM-dd");
+                            strSignDate = tempSignDate.ToString("yyyy/MM/dd");
                         }
                     }
                     currentModel.SignDate = strSignDate;

@@ -10,9 +10,12 @@ namespace HSBC.InsuranceDataAnalysis.Model
 
         public string Day { set; get; }
         public string Chdrcoy { set; get; }
-        public string ChdrNum{ set; get; }
-        public string  ProdTyp { set; get; }
-        public string LiabilityCode { set; get; }
+        public string ChdrNum { set; get; }
+
+        public string Mbrno { get; set; }
+
+        public string ProdTyp { set; get; }
+        //public string LiabilityCode { set; get; }
         public string SumSi { get; set; }//BS
         public string Pprem { get; set; }//AY
         public string Clntnum { get; set; }//I
