@@ -52,8 +52,9 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public string F42 { get; set; }
         public string MunichReLf { get; set; }
         public string HannoverReLf { get; set; }
-        public string MunichRe { get; set; }
-        public string Md { get; set; }
+        public string MunichReMd { get; set; }
+        public string PolicyNo { get; set; }//AT
+        public string ProductCode { get; set; }//AU
 
     }
 }

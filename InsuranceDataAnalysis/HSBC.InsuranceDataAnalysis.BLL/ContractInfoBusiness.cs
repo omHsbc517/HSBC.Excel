@@ -850,9 +850,9 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     model.F42 = excelApp.GetCell(i, "AP").Value;
                     model.MunichReLf = excelApp.GetCell(i, "AQ").Value;
                     model.HannoverReLf = excelApp.GetCell(i, "AR").Value;
-                    model.MunichRe = excelApp.GetCell(i, "AS").Value;
-                    model.Md = excelApp.GetCell(i, "AT").Value;
-
+                    model.MunichReMd = excelApp.GetCell(i, "AS").Value;
+                    model.PolicyNo = excelApp.GetCell(i, "AT").Value;
+                    model.ProductCode = excelApp.GetCell(i, "AU").Value;
                     if (!string.IsNullOrWhiteSpace(model.Clamnomap))
                     {
                         lstRIClaimReportGroup.Add(model);
