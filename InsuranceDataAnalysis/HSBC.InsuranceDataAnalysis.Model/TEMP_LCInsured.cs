@@ -37,8 +37,11 @@ namespace HSBC.InsuranceDataAnalysis.Model
 
         private string policyNo;
 
-
-
+        /// <summary>
+        /// column c
+        /// </summary>
+        [Description("GrpPolicyNo")]
+        public string GrpPolicyNo { get; set; }
 
 
         /// <summary>
