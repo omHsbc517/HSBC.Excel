@@ -1065,6 +1065,9 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     tempModel.DeductibleType = excelApp.GetCell(i, "W").Value;
                     tempModel.Deductible = excelApp.GetCell(i, "X").Value;
                     tempModel.ClaimRatio = excelApp.GetCell(i, "Y").Value;
+                    tempModel.ClmSettDate = excelApp.GetCell(i, "AA").Value;
+                    tempModel.PayStatusCode = excelApp.GetCell(i, "AB").Value;
+                    tempModel.ProductNo = excelApp.GetCell(i, "H").Value;
                     if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
                     {
                         break;
@@ -1184,6 +1187,9 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     tempModel.DeductibleType = excelApp.GetCell(i, "W").Value;
                     tempModel.Deductible = excelApp.GetCell(i, "X").Value;
                     tempModel.ClaimRatio = excelApp.GetCell(i, "Y").Value;
+                    tempModel.ClmSettDate = excelApp.GetCell(i, "AA").Value;
+                    tempModel.PayStatusCode = excelApp.GetCell(i, "AB").Value;
+                    tempModel.ProductNo = excelApp.GetCell(i, "H").Value;
                     if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
                     {
                         break;

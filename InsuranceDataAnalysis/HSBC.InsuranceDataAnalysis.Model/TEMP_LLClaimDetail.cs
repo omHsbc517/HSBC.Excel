@@ -7,7 +7,7 @@ namespace HSBC.InsuranceDataAnalysis.Model
 {
     public class TEMP_LLClaimDetail
     {
-
+      
         public string PolicyNo
         {
             get
@@ -28,5 +28,8 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public string ClaimRatio { set; get; }//Y
         public string ClmCaseNo { set; get; }//C
         public string GrpPolicyNo { get; set; }//E
+        public string ClmSettDate { get; set; }//AA
+        public string PayStatusCode { get; set; }//AB
+        public string ProductNo { get; set; }//H
     }
 }
