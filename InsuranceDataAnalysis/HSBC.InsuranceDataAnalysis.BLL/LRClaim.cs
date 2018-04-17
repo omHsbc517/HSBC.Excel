@@ -142,7 +142,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //个人保单号
                 lRClaimModel.PolicyNo = model.PolicyNo;
 
-                //个单保险险种号码  //TODO 个人
+                //个单保险险种号码  //TODO 个人 ProductNo
                 var tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e => e.PolicyNo.Equal(lRClaimModel.PolicyNo) &&
                  e.ProductCode.Equal(model.Product)).FirstOrDefault();
                 lRClaimModel.ProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.ProductNo;
@@ -226,13 +226,14 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lRClaimModel.Status = "01";
 
                 //基本保额
-                lRClaimModel.BasicSumInsured = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.BasicSumInsured.Trim());
+                var newTEMPLCProduct= businessModel.lstTEMP_LCProduct.Where(e => e.PolicyNo.Equal(lRClaimModel.PolicyNo) && e.ProductCode.Equal(lRClaimModel.ProductNo)).FirstOrDefault();
+                lRClaimModel.BasicSumInsured = newTEMPLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(newTEMPLCProduct.BasicSumInsured.Trim());
 
                 //风险保额
-                lRClaimModel.RiskAmnt = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.RiskAmnt.Trim());
+                lRClaimModel.RiskAmnt = newTEMPLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(newTEMPLCProduct.RiskAmnt.Trim());
 
                 //保费
-                lRClaimModel.Premium = tempLCCont == null ? string.Empty :Common.ConvertToStrToStrDecimal(tempLCCont.Premium);
+                lRClaimModel.Premium = newTEMPLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(newTEMPLCProduct.Premium.Trim());
 
                 //免赔类型代码
                 lRClaimModel.DeductibleType = tEMP_LLClaimDetail == null ? "" : tEMP_LLClaimDetail.DeductibleType;
@@ -243,7 +244,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //赔付比例
                 lRClaimModel.ClaimRatio = tEMP_LLClaimDetail == null ? "" : tEMP_LLClaimDetail.ClaimRatio;
 
-                //保险账户价值
+                //保险账户价值 //TODO 个人
                 var tempInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(lRClaimModel.PolicyNo)
                   && e.ProductNo.Equal(lRClaimModel.ProductNo)).FirstOrDefault();
 
@@ -268,25 +269,25 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //被保人客户号
                 lRClaimModel.InsuredNo = model.MembersCertificateNo;
 
-                //被保人姓名
+                //被保人姓名 //TODO 个人
                 var tempInsured = businessModel.lstTEMP_LCInsured.Where(e => e.PolicyNo.Equal(lRClaimModel.PolicyNo)
                    && e.InsuredNo.Equal(lRClaimModel.InsuredNo)).FirstOrDefault();
 
                 lRClaimModel.InsuredName = tempInsured == null ? string.Empty : tempInsured.InsuredName;
 
-                //被保人性别
+                //被保人性别 //TODO 个人
                 lRClaimModel.InsuredSex = tempInsured == null ? string.Empty : tempInsured.InsuredSex;
 
-                //被保人证件类型
+                //被保人证件类型 //TODO 个人
                 lRClaimModel.InsuredCertType = tempInsured == null ? string.Empty : tempInsured.InsuredCertType;
 
-                //被保人证件编码
+                //被保人证件编码 //TODO 个人
                 lRClaimModel.InsuredCertNo = tempInsured == null ? string.Empty : tempInsured.InsuredCertNo;
 
-                //职业代码
+                //职业代码 //TODO 个人
                 lRClaimModel.OccupationType = tempInsured == null ? string.Empty : tempInsured.OccupationType;
 
-                //投保年龄
+                //投保年龄 //TODO 个人
                 lRClaimModel.AppntAge = tempInsured == null ? string.Empty : tempInsured.AppAge;
 
                 //当前年龄
@@ -295,13 +296,13 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //期末责任准备金
                 lRClaimModel.FinalLiabilityReserve = ConfigInformation.NumberValue;
 
-                //职业加费金额
+                //职业加费金额 //TODO 个人
                 lRClaimModel.ProfessionalFee = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.ProfessionalFee);
 
-                //次标准体加费金额
+                //次标准体加费金额 //TODO 个人
                 lRClaimModel.SubStandardFee = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.SubStandardFee);
 
-                //EM加点
+                //EM加点 //TODO 个人
                 lRClaimModel.EMRate = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.EMRate);
 
                 //建工险标志
@@ -310,7 +311,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //投保总人数
                 lRClaimModel.InsurePeoples = "1";
 
-                //再保险公司名称
+                //再保险公司名称 //TODO  个人
                 lRClaimModel.ReinsurerName = model.CompanyName;
 
                 //再保险公司代码
@@ -428,7 +429,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //给付责任名称
                 lRClaimModel.GetLiabilityName = lRClaimModel.LiabilityName;
 
-                //赔付责任类型代码
+                //赔付责任类型代码//TODO AAAAA
                 var tEMP_LLClaimDetail = businessModel.lstTEMP_LLClaimDetail.Where(A => A.ClmCaseNo == lRClaimModel.ClaimNo).FirstOrDefault();
                 lRClaimModel.BenefitType = tEMP_LLClaimDetail == null ? "" : tEMP_LLClaimDetail.BenefitType;
 
@@ -482,26 +483,26 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lRClaimModel.Status = "01";
 
                 //基本保额
-               // lCProduct_Group
-                lRClaimModel.BasicSumInsured = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.BasicSumInsured.Trim());
-
+                var lCProduct_Group = businessModel.lstTEMP_LCProductGroup.Where(A => A.GrpPolicyNo == lRClaimModel.GrpPolicyNo && A.PolicyNo == lRClaimModel.PolicyNo && A.ProductNo == lRClaimModel.GrpProductNo).FirstOrDefault();
+                lRClaimModel.BasicSumInsured = lCProduct_Group == null ? string.Empty : Common.ConvertToStrToStrDecimal(lCProduct_Group.BasicSumInsured.Trim());
+                                                                                                                                        
                 //风险保额
-                lRClaimModel.RiskAmnt = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.RiskAmnt.Trim());
+                lRClaimModel.RiskAmnt = lCProduct_Group == null ? string.Empty : Common.ConvertToStrToStrDecimal(lCProduct_Group.RiskAmnt.Trim());
 
                 //保费
-                lRClaimModel.Premium = tempLCCont == null ? string.Empty :
-                        Common.ConvertToStrToStrDecimal(tempLCCont.Premium);
+                lRClaimModel.Premium = lCProduct_Group == null ? string.Empty : Common.ConvertToStrToStrDecimal(lCProduct_Group.Premium.Trim());
 
                 //免赔类型代码
-                lRClaimModel.DeductibleType = tEMP_LLClaimDetail == null ? "" : tEMP_LLClaimDetail.DeductibleType;
+                var LLClaimDetailGroup = businessModel.lstLLClaimDetailGroup.Where(A => A.ClmCaseNo == lRClaimModel.ClaimNo).FirstOrDefault();
+                lRClaimModel.DeductibleType = LLClaimDetailGroup == null ? "" : LLClaimDetailGroup.DeductibleType;
 
                 //免赔额
-                lRClaimModel.Deductible = tEMP_LLClaimDetail == null ? "" : tEMP_LLClaimDetail.Deductible;
+                lRClaimModel.Deductible = LLClaimDetailGroup == null ? "" : LLClaimDetailGroup.Deductible;
 
                 //赔付比例
-                lRClaimModel.ClaimRatio = tEMP_LLClaimDetail == null ? "" : tEMP_LLClaimDetail.ClaimRatio;
+                lRClaimModel.ClaimRatio = LLClaimDetailGroup == null ? "" : LLClaimDetailGroup.ClaimRatio;
 
-                //保险账户价值
+                //保险账户价值 //TODO 团体
                 var tempInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(lRClaimModel.PolicyNo)
                    && e.ProductNo.Equal(lRClaimModel.ProductNo)).FirstOrDefault();
 
@@ -525,40 +526,40 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //被保人客户号
                 lRClaimModel.InsuredNo = model.Clntnum;
 
-                //被保人姓名
+                //被保人姓名  //TODO 团体
                 var tempInsured = businessModel.lstTEMP_LCInsured.Where(e => e.PolicyNo.Equal(lRClaimModel.PolicyNo)
                    && e.InsuredNo.Equal(lRClaimModel.InsuredNo)).FirstOrDefault();
 
                 lRClaimModel.InsuredName = tempInsured == null ? string.Empty : tempInsured.InsuredName; ;
 
-                //被保人性别
+                //被保人性别  //TODO 团体
                 lRClaimModel.InsuredSex = tempInsured == null ? string.Empty : tempInsured.InsuredSex;
 
-                //被保人证件类型
+                //被保人证件类型  //TODO 团体
                 lRClaimModel.InsuredCertType = tempInsured == null ? string.Empty : tempInsured.InsuredCertType;
 
-                //被保人证件编码
+                //被保人证件编码  //TODO 团体
                 lRClaimModel.InsuredCertNo = tempInsured == null ? string.Empty : tempInsured.InsuredCertNo;
 
-                //职业代码
+                //职业代码  //TODO 团体
                 lRClaimModel.OccupationType = tempInsured == null ? string.Empty : tempInsured.OccupationType;
 
-                //投保年龄
+                //投保年龄  //TODO 团体
                 lRClaimModel.AppntAge = tempInsured == null ? string.Empty : tempInsured.AppAge;
 
                 //当前年龄
                 lRClaimModel.PreAge = ConfigInformation.TextValue;
 
-                //期末责任准备金
+                //期末责任准备金 
                 lRClaimModel.FinalLiabilityReserve = ConfigInformation.NumberValue;
 
-                //职业加费金额
+                //职业加费金额  //TODO 团体
                 lRClaimModel.ProfessionalFee = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.ProfessionalFee);
 
-                //次标准体加费金额
+                //次标准体加费金额  //TODO 团体
                 lRClaimModel.SubStandardFee = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.SubStandardFee);
 
-                //EM加点
+                //EM加点  //TODO 团体
                 lRClaimModel.EMRate = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.EMRate);
 
                 //建工险标志
@@ -567,7 +568,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //投保总人数
                 lRClaimModel.InsurePeoples = "1";
 
-                //再保险公司名称
+                //再保险公司名称 //TODO 团体
                 lRClaimModel.ReinsurerName = Common.DefaultCommanyName;
 
                 //再保险公司代码
@@ -602,9 +603,9 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lRClaimModel.QuotaSharePercentage = templstZaiBaoProductInfo == null ? string.Empty :
                         templstZaiBaoProductInfo.QuotaSharePercentage;
 
-                //赔案号
-                var TEMP_LLClaimPolicyModel = businessModel.lstTEMP_LLClaimPolicy.Where(A => A.PolicyNo == lRClaimModel.PolicyNo).ToList();
-                lRClaimModel.ClaimNo = TEMP_LLClaimPolicyModel.Count() == 0 ? "" : TEMP_LLClaimPolicyModel.First().ClaimNo;
+                //赔案号 
+                LLClaimDetailGroup = businessModel.lstLLClaimDetailGroup.Where(A => A.PolicyNo == lRClaimModel.PolicyNo&& A.GrpPolicyNo == lRClaimModel.GrpPolicyNo).FirstOrDefault();
+                lRClaimModel.ClaimNo = LLClaimDetailGroup == null ? "" : LLClaimDetailGroup.ClmCaseNo;
 
                 //出险日期
                 var TEMP_LLClaimInfoModel = businessModel.lstTEMP_LLClaimInfo.Where(A => A.ClaimNo == lRClaimModel.ClaimNo).ToList();
@@ -614,7 +615,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lRClaimModel.ClmSettDate = TEMP_LLClaimInfoModel.Count() == 0 ? "" : TEMP_LLClaimInfoModel.First().ClmSettDate;
 
                 //理赔结论代码
-                lRClaimModel.PayStatusCode = TEMP_LLClaimPolicyModel.Count() == 0 ? "" : TEMP_LLClaimPolicyModel.First().PayStatusCode;
+              //  lRClaimModel.PayStatusCode = TEMP_LLClaimPolicyModel.Count() == 0 ? "" : TEMP_LLClaimPolicyModel.First().PayStatusCode;
 
                 //实际赔款金额
                 lRClaimModel.ClaimMoney = model.Payclam;

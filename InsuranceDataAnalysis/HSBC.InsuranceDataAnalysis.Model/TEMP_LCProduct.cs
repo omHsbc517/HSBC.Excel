@@ -104,5 +104,11 @@ namespace HSBC.InsuranceDataAnalysis.Model
         /// </summary>
         [Description("RiskAmnt")]
         public string RiskAmnt { get; set; }
+
+        /// <summary>
+        /// 保费
+        /// </summary>
+        [Description("Premium")]
+        public string Premium { get; set; }
     }
 }

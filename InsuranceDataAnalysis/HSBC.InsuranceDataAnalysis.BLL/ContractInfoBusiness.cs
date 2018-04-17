@@ -153,6 +153,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         public List<ZaiBaoProductInfo> lstZaiBaoProductInfo { get; set; }
 
         public List<LCGrpContGroup> lstLCGrpContGroup { get; set; }
+        public List<TEMP_LLClaimDetail> lstLLClaimDetailGroup{ get; set; }
 
         public ContractInfoBusiness()
         {
@@ -192,6 +193,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             lstTEMP_LCInsured = new List<TEMP_LCInsured>();
             lstZaiBaoProductInfo = new List<ZaiBaoProductInfo>();
             lstTEMP_LCProductGroup = new List<TEMP_LCProduct>();
+            lstLLClaimDetailGroup = new List<TEMP_LLClaimDetail>();
         }
 
         public void GetInformationDataFromExcel(string InformationExcelPath, string inputFilePath)
@@ -210,6 +212,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
             GetTEMP_LCPolTransactionData(InformationExcelPath + @"\TEMP_LCPolTransaction.xlsx");
             GetTEMP_LLClaimDetailData(InformationExcelPath + @"\TEMP_LLClaimDetail.xlsx");
+            GetLLClaimDetailGroupData(InformationExcelPath + @"\group\LLClaimDetail_Group.xlsx");
             GetTEMP_LLClaimPolicyData(InformationExcelPath + @"\TEMP_LLClaimPolicy.xlsx");
             GetTEMP_LLClaimInfoData(InformationExcelPath + @"\TEMP_LLClaimInfo.xlsx");
             GetDataFromlstTEMPLCInsured(InformationExcelPath + @"\TEMP_LCInsured.xlsx");
@@ -1047,6 +1050,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 {
                     TEMP_LLClaimDetail tempModel = new TEMP_LLClaimDetail();
                     tempModel.ClmCaseNo = excelApp.GetCell(i, "C").Value;
+                    tempModel.GrpPolicyNo = excelApp.GetCell(i, "E").Value;
                     tempModel.PolicyNo = excelApp.GetCell(i, "G").Value;
                     tempModel.GetLiabilityCode = excelApp.GetCell(i, "M").Value;
                     tempModel.GetLiabilityName = excelApp.GetCell(i, "O").Value;
@@ -1136,6 +1140,50 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     }
                     lstTEMP_LLClaimInfo.Add(tempModel);
                 }
+                ProcessLogProxy.SuccessMessage("Get excel information Success");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                excelApp.CloseExcel();
+            }
+        }
+
+        /// <summary>
+        /// 1.6.6 LLClaimDetailGroup 
+        /// </summary>
+        /// <param name="excelPath"></param>
+        private void GetLLClaimDetailGroupData(string excelPath)
+        {
+            try
+            {
+                ProcessLogProxy.Normal("Start to get TEMP_LLClaimDetail excel information");
+                CheckExcelFile(excelPath);
+                excelApp.OpenExcel(excelPath, true);
+                excelApp.SelectSheet("Sheet1");
+                var allRows = excelApp.GetSheetByRow();
+                for (int i = 2; i <= allRows.Count; i++)
+                {
+                    TEMP_LLClaimDetail tempModel = new TEMP_LLClaimDetail();
+                    tempModel.ClmCaseNo = excelApp.GetCell(i, "C").Value;
+                    tempModel.GrpPolicyNo = excelApp.GetCell(i, "E").Value;
+                    tempModel.PolicyNo = excelApp.GetCell(i, "G").Value;
+                    tempModel.GetLiabilityCode = excelApp.GetCell(i, "M").Value;
+                    tempModel.GetLiabilityName = excelApp.GetCell(i, "O").Value;
+                    tempModel.BenefitType = excelApp.GetCell(i, "J").Value;
+                    tempModel.DeductibleType = excelApp.GetCell(i, "W").Value;
+                    tempModel.Deductible = excelApp.GetCell(i, "X").Value;
+                    tempModel.ClaimRatio = excelApp.GetCell(i, "Y").Value;
+                    if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
+                    {
+                        break;
+                    }
+                    lstLLClaimDetailGroup.Add(tempModel);
+                }
+
                 ProcessLogProxy.SuccessMessage("Get excel information Success");
             }
             catch (Exception ex)

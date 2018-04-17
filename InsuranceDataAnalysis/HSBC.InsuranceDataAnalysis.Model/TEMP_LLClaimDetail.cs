@@ -27,7 +27,6 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public string Deductible { set; get; }//X
         public string ClaimRatio { set; get; }//Y
         public string ClmCaseNo { set; get; }//C
-        
-
+        public string GrpPolicyNo { get; set; }//E
     }
 }
