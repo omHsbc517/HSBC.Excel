@@ -609,7 +609,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                         {
                             inforceBusinessListing.PolicyNo = excelApp.GetCell(j, "B").Value;
 
-                            string tempMemberCertificateNo = excelApp.GetCell(j, "B").Value;
+                            string tempMemberCertificateNo = excelApp.GetCell(j, "E").Value;
                             inforceBusinessListing.MemberCertificateNo = tempMemberCertificateNo.PadLeft(8, '0');
 
                             //inforceBusinessListing.MemberCertificateNo = excelApp.GetCell(j, "E").Value;
@@ -763,7 +763,8 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     model.Chdrcoy = excelApp.GetCell(i, "B").Value;
                     model.ChdrNum = excelApp.GetCell(i, "C").Value;
                     model.ProdTyp = excelApp.GetCell(i, "F").Value;
-                    model.LiabilityCode = excelApp.GetCell(i, "F").Value;
+                    //model.LiabilityCode = excelApp.GetCell(i, "F").Value;
+                    model.Mbrno = excelApp.GetCell(i, "D").Value;
                     model.SumSi = excelApp.GetCell(i, "BS").Value;
                     model.Pprem = excelApp.GetCell(i, "AY").Value;
                     model.Clntnum = excelApp.GetCell(i, "I").Value;
