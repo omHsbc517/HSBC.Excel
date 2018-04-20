@@ -73,5 +73,11 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             result = d2.ToString("yyyy-MM-dd");
             return result;
         }
+
+        public static string GetLastDayOfMonth(string yyyymm)
+        {
+            var date = yyyymm.Substring(0, 4) + "-" + yyyymm.Substring(4, 2) + "-01";
+            return Convert.ToDateTime(date).AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd");
+        }
     }
 }

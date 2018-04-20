@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HSBC.InsuranceDataAnalysis.Model
 {
-    [Sheet("Sheet1", "BI")]//aaaaaaaaaaaaa
+    [Sheet("Sheet1", "BO")]//aaaaaaaaaaaaa
     public class TEMP_LCCont
     {
         [Description("GrpPolicyNo")]

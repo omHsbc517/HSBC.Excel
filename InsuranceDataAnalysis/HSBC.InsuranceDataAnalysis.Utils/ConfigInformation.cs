@@ -12,5 +12,7 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public static string OutputFolderPath { set; get; }
         public static string NumberValue { set; get; }
         public static string TextValue { set; get; }
+
+        public static string DateValue { set; get; } 
     }
 }

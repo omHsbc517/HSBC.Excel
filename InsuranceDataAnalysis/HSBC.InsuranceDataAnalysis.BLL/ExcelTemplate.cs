@@ -382,11 +382,15 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 22);
             excelApp.SetColumnTextType("Sheet1", 53);
             excelApp.SetColumnTextType("Sheet1", 54);
+            excelApp.SetColumnTextType("Sheet1", 33);
 
             excelApp.SetColumnDateType("Sheet1", 16);
             excelApp.SetColumnDateType("Sheet1", 17);
             excelApp.SetColumnDateType("Sheet1", 19);
-
+            excelApp.SetColumnDateType("Sheet1", 49);
+            excelApp.SetColumnDateType("Sheet1", 50);
+            excelApp.SetColumnDateType("Sheet1", 73);
+            excelApp.SetColumnDateType("Sheet1", 74);
 
             excelApp.Save();
         }
@@ -477,6 +481,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 24);
             excelApp.SetColumnTextType("Sheet1", 52);
             excelApp.SetColumnTextType("Sheet1", 53);
+            excelApp.SetColumnTextType("Sheet1", 37);
 
             excelApp.SetColumnDateType("Sheet1", 18);
             excelApp.SetColumnDateType("Sheet1", 19);
@@ -485,6 +490,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnDateType("Sheet1", 65);
             excelApp.SetColumnDateType("Sheet1", 67);
             excelApp.SetColumnDateType("Sheet1", 68);
+            excelApp.SetColumnDateType("Sheet1", 61);
 
             excelApp.SetColumnDecimalsType("Sheet1", 63);
             excelApp.SetColumnDecimalsType("Sheet1", 64);

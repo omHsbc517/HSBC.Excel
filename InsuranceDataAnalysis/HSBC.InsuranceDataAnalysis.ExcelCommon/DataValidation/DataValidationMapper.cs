@@ -16,6 +16,7 @@ namespace HSBC.InsuranceDataAnalysis.ExcelCommon.DataValidation
             { typeof (TEMP_LCCont),SetMapping<TEMP_LCCont>()},
              { typeof (TEMP_LCInsureAcc),SetMapping<TEMP_LCInsureAcc>()},
               { typeof (LCGrpContGroup),SetMapping<LCGrpContGroup>()},
+                  { typeof (TEMP_LLClaimDetail),SetMapping<TEMP_LLClaimDetail>()},
               { typeof (TEMP_LCPolTransaction),SetMapping<TEMP_LCPolTransaction>()}
 
         };
@@ -29,18 +30,18 @@ namespace HSBC.InsuranceDataAnalysis.ExcelCommon.DataValidation
         {
             var result = new List<ExcelMapping>();
             var description = "";
-            var type=typeof(T);
+            var type = typeof(T);
             var properties = type.GetProperties();
-            if (properties!=null)
+            if (properties != null)
             {
                 foreach (var item in properties)
                 {
                     DescriptionAttribute attribute = Attribute.GetCustomAttribute(item, typeof(DescriptionAttribute), false) as DescriptionAttribute;
-                    if (attribute!=null)
+                    if (attribute != null)
                     {
                         description = attribute.Description;
                     }
-                    result.Add(new ExcelMapping {CoumnName=description,PropertyName=item.Name });
+                    result.Add(new ExcelMapping { CoumnName = description, PropertyName = item.Name });
                 }
             }
             return result;

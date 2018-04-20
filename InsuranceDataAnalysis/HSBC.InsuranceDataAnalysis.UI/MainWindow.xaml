@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:HSBC.InsuranceDataAnalysis.UI.Helper"
         mc:Ignorable="d"
         Background="White"
-        Title="PRIS3.Resurance" Height="530" Width="625" WindowStartupLocation="CenterScreen">
+        Title="PRIS3.Reinsurance" Height="530" Width="625" WindowStartupLocation="CenterScreen">
     <Window.DataContext >
         <src:MainWindowViewModel></src:MainWindowViewModel>
     </Window.DataContext>

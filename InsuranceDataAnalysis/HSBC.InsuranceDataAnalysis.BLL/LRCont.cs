@@ -147,8 +147,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.GrpProductNo = tempModel.Prodtyp;
 
                     //个人保单号
-                    var tempLCCont = businessModel.lstTEMP_LCCont.Where(e => e.PolicyNo.Equals(currentModel.GrpPolicyNo)).FirstOrDefault();
-                    currentModel.PolicyNo = tempLCCont == null ? string.Empty : (tempLCCont.PolicyNo + "00").PadLeft(7, '0');
+                    //var tempLCCont = businessModel.lstTEMP_LCCont.Where(e => e.PolicyNo.Equals(currentModel.GrpPolicyNo)).FirstOrDefault();
+                    //currentModel.PolicyNo = tempLCCont == null ? string.Empty : (tempLCCont.PolicyNo + "00").PadLeft(7, '0');
+
+                    currentModel.PolicyNo =(tempModel.Mbrno + "00").PadLeft(7, '0');
 
                     // 个单保险险种号码
                     currentModel.ProductNo = tempModel.Prodtyp;
@@ -159,7 +161,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     // 主险保险险种号码
                     var tempLCProductGroup = businessModel.lstTEMP_LCProductGroup.Where(e =>
                     e.GrpPolicyNo.Equals(currentModel.GrpPolicyNo) &&
-                    e.PolicyNo.Equal(currentModel.PolicyNo) &&
+                    e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0')) &&
                     e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
 
                     currentModel.MainProductNo = tempLCProductGroup == null ? string.Empty : tempLCProductGroup.MainProductNo;
@@ -170,14 +172,14 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     //产品编码
                     string tempProductCode = string.IsNullOrWhiteSpace(tempModel.ProductCode) ? string.Empty : tempModel.ProductCode.Trim();
                     currentModel.ProductCode = (tempProductCode.Equals("GIP")
-                        || tempProductCode.Equals("GIP")) ? "GHB" : tempProductCode;
+                        || tempProductCode.Equals("GOP") || tempProductCode.Equals("GMA")) ? "GHB" : tempProductCode;
 
                     //责任代码
                     //var templstZaiBaoProductInfo2 = businessModel.lstZaiBaoProductInfo.Where(e => e.ProductCode.Equals(tempModel.ProductCode)).FirstOrDefault();
                     currentModel.LiabilityCode = Common.GetLiabilityCode(currentModel.ProductCode);
 
                     //责任名称
-                    var tempCategory = PersonalLiabilityCategory.LstCategory.Where(e => e.LiabilityCategoryCode.Equal(tempModel.ProductCode)).FirstOrDefault();
+                    var tempCategory = PersonalLiabilityCategory.LstCategory.Where(e => e.CategoryCode.Equal(currentModel.LiabilityCode)).FirstOrDefault();
                     currentModel.LiabilityName = tempCategory == null ? string.Empty : tempCategory.CategoryName;
 
                     //责任分类代码
@@ -203,7 +205,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                         if (convertResult)
                         {
-                            strSignDate = tempSignDate.ToString("yyyy-MM-dd");
+                            strSignDate = tempSignDate.ToString("yyyy/MM/dd");
                         }
                     }
                     currentModel.SignDate = strSignDate;
@@ -298,7 +300,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.InsuredNo = tempModel.Clntnum;
 
                     //被保人姓名
-                    var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
+                    var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0'))
                     && e.GrpPolicyNo.Equal(currentModel.GrpPolicyNo)).FirstOrDefault();
                     currentModel.InsuredName = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredName;
 
@@ -318,7 +320,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.AppntAge = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.AppAge;
 
                     //当前年龄
-                    currentModel.PreAge = ConfigInformation.TextValue;
+                    currentModel.PreAge = ConfigInformation.NumberValue;
 
                     //职业加费金额
                     currentModel.ProfessionalFee = "0";
@@ -362,9 +364,18 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                         templstZaiBaoProductInfo.ReinsurMode;
 
                     //分出标记
-                    string tempQuotaSharePercentage = (templstZaiBaoProductInfo.QuotaSharePercentage == "0" ||
-                        templstZaiBaoProductInfo.QuotaSharePercentage == "0.00") ? "0" : "1";
-                    currentModel.SaparateFlag = templstZaiBaoProductInfo == null ? string.Empty : tempQuotaSharePercentage;
+                    if (templstZaiBaoProductInfo == null)
+                    {
+                        currentModel.SaparateFlag = string.Empty;
+                    }
+                    else
+                    {
+                        string tempQuotaSharePercentage = (templstZaiBaoProductInfo.QuotaSharePercentage == "0" ||
+                    templstZaiBaoProductInfo.QuotaSharePercentage == "0.00") ? "0" : "1";
+                        currentModel.SaparateFlag = templstZaiBaoProductInfo == null ? string.Empty : tempQuotaSharePercentage;
+                    }
+
+
 
 
                     //分保保额
@@ -388,10 +399,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.ReinsuranceCommssion = Common.ConvertToStrToStrDecimal(tempModel.ReinsuranceCommssion);
 
                     //ReComputationsDate
-                    currentModel.ReComputationsDate = Common.GetCurrentMonthLastDay(DateTime.Now);
+                    currentModel.ReComputationsDate = Common.GetLastDayOfMonth(yearMonthDay);
 
                     //账单归属日期
-                    currentModel.AccountGetDate = Common.GetCurrentMonthLastDay(DateTime.Now);
+                    currentModel.AccountGetDate = Common.GetLastDayOfMonth(yearMonthDay);
 
                     serialNumber++;
 
@@ -423,7 +434,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                     //个人保单号
                     string tempPolicyNo = string.IsNullOrWhiteSpace(tempModel.PolicyNo) ? string.Empty : tempModel.PolicyNo.Trim();
-                    currentModel.PolicyNo = tempPolicyNo.PadLeft(8,'0');
+                    currentModel.PolicyNo = tempPolicyNo.PadLeft(8, '0');
 
                     //主附险性质代码
                     currentModel.MainProductFlag = this.GetMainProductFlag(tempModel.ProductCode);
@@ -431,7 +442,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     // 个单保险险种号码
                     var tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e =>
                     e.PolicyNo.Equal(currentModel.PolicyNo) &&
-                     e.ProductCode.Equal(tempModel.ProductCode) && 
+                     e.ProductCode.Equal(tempModel.ProductCode) &&
                      e.MainProductFlag.Equals(currentModel.MainProductFlag)).FirstOrDefault();
 
                     currentModel.ProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.ProductNo;
@@ -560,7 +571,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                         }
                     }
 
-                   string  strTempAccountTotal = tempAccountTotal.ToString("0.00");
+                    string strTempAccountTotal = tempAccountTotal.ToString("0.00");
                     currentModel.AccountValue = strTempAccountTotal;
 
                     //临分标记
@@ -577,7 +588,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     currentModel.AnonymousFlag = "0";
 
                     //豁免险标志
-                    currentModel.WaiverFlag = "0s";
+                    currentModel.WaiverFlag = "0";
 
                     //所需豁免剩余保费
                     currentModel.WaiverPrem = "0";
@@ -622,7 +633,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                     //EM加点
                     currentModel.EMRate = tempLCProduct == null ? string.Empty : Common.ConvertToStrToStrDecimal(tempLCProduct.EMRate);
-                    
+
                     //建工险标志
                     currentModel.ProjectFlag = ConfigInformation.TextValue;
 
@@ -707,10 +718,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     }
 
                     //ReComputationsDate
-                    currentModel.ReComputationsDate = Common.GetCurrentMonthLastDay(DateTime.Now);
+                    currentModel.ReComputationsDate = Common.GetLastDayOfMonth(yearMonthDay);
 
                     //账单归属日期
-                    currentModel.AccountGetDate = Common.GetCurrentMonthLastDay(DateTime.Now);
+                    currentModel.AccountGetDate = Common.GetLastDayOfMonth(yearMonthDay);
 
                     serialNumber++;
 

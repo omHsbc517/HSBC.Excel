@@ -11,18 +11,7 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public string CompanyCode { get; set; }
         public string GrpPolicyNo { get; set; }
         public string GrpProductNo { get; set; }
-        public string PolicyNo
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(this.policyNo) ? string.Empty : this.policyNo.PadLeft(8, '0');
-            }
-            set
-            {
-                this.policyNo = value;
-            }
-        }
-        private string policyNo;
+        public string PolicyNo { get; set; }
         public string ProductNo { get; set; }
         public string GPFlag { get; set; }
         public string MainProductNo { get; set; }

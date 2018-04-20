@@ -27,7 +27,7 @@ namespace HSBC.InsuranceDataAnalysis.Model
         public string CauseOfClaim { get; set; }
         public string AdmissionServiceDate { get; set; }
         public string Discharge { get; set; }
-        public string PaymentDate { get; set; }
+       // public string PaymentDate { get; set; }
         public string PaidAmount { get; set; }
         public string PaidAmountCurrency { get; set; }
         public string RecoveryAmount { get; set; }

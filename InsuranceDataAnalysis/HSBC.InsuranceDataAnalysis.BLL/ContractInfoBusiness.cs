@@ -235,6 +235,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             {
                 excelApp.OpenExcel(excelPath, true);
                 excelApp.SelectSheet(RIContractName);
+                excelApp.SetCellValue(1,"A","a");
                 var allRows = excelApp.GetSheetByRow();
 
                 int riContractRowsCount = allRows.Count;
@@ -686,10 +687,9 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                         claimSheetModel.CauseOfClaim = excelApp.GetCell(j, "G").Value;
                         claimSheetModel.AdmissionServiceDate = excelApp.GetCell(j, "H").Value;
                         claimSheetModel.Discharge = excelApp.GetCell(j, "L").Value;
-                        claimSheetModel.PaymentDate = excelApp.GetCell(j, "M").Value;
-                        claimSheetModel.PaidAmount = excelApp.GetCell(j, "N").Value;
+                        claimSheetModel.PaidAmount = excelApp.GetCell(j, "K").Value;
                         claimSheetModel.PaidAmountCurrency = excelApp.GetCell(j, "O").Value;
-                        claimSheetModel.RecoveryAmount = excelApp.GetCell(j, "P").Value;
+                        claimSheetModel.RecoveryAmount = excelApp.GetCell(j, "M").Value;
 
                         if (string.IsNullOrWhiteSpace(claimSheetModel.PolicyNo))
                         {
@@ -1050,40 +1050,16 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             {
                 ProcessLogProxy.Normal("Start to get TEMP_LLClaimDetail excel information");
                 CheckExcelFile(excelPath);
-                excelApp.OpenExcel(excelPath, true);
-                excelApp.SelectSheet("Sheet1");
-                var allRows = excelApp.GetSheetByRow();
-                for (int i = 2; i <= allRows.Count; i++)
-                {
-                    TEMP_LLClaimDetail tempModel = new TEMP_LLClaimDetail();
-                    tempModel.ClmCaseNo = excelApp.GetCell(i, "C").Value;
-                    tempModel.GrpPolicyNo = excelApp.GetCell(i, "E").Value;
-                    tempModel.PolicyNo = excelApp.GetCell(i, "G").Value;
-                    tempModel.GetLiabilityCode = excelApp.GetCell(i, "M").Value;
-                    tempModel.GetLiabilityName = excelApp.GetCell(i, "O").Value;
-                    tempModel.BenefitType = excelApp.GetCell(i, "J").Value;
-                    tempModel.DeductibleType = excelApp.GetCell(i, "W").Value;
-                    tempModel.Deductible = excelApp.GetCell(i, "X").Value;
-                    tempModel.ClaimRatio = excelApp.GetCell(i, "Y").Value;
-                    tempModel.ClmSettDate = excelApp.GetCell(i, "AA").Value;
-                    tempModel.PayStatusCode = excelApp.GetCell(i, "AB").Value;
-                    tempModel.ProductNo = excelApp.GetCell(i, "H").Value;
-                    if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
-                    {
-                        break;
-                    }
-                    lstTEMP_LLClaimDetail.Add(tempModel);
-                }
+                var _excel = new ExcelHelper();
+                ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
+                lstTEMP_LLClaimDetail = _excel.Read<TEMP_LLClaimDetail>(excel).ToList();
 
                 ProcessLogProxy.SuccessMessage("Get excel information Success");
+                excel.Close();
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                excelApp.CloseExcel();
             }
         }
 
@@ -1172,41 +1148,18 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             {
                 ProcessLogProxy.Normal("Start to get LLClaimDetail_Group excel information");
                 CheckExcelFile(excelPath);
-                excelApp.OpenExcel(excelPath, true);
-                excelApp.SelectSheet("Sheet1");
-                var allRows = excelApp.GetSheetByRow();
-                for (int i = 2; i <= allRows.Count; i++)
-                {
-                    TEMP_LLClaimDetail tempModel = new TEMP_LLClaimDetail();
-                    tempModel.ClmCaseNo = excelApp.GetCell(i, "C").Value;
-                    tempModel.GrpPolicyNo = excelApp.GetCell(i, "E").Value;
-                    tempModel.PolicyNo = excelApp.GetCell(i, "G").Value;
-                    tempModel.GetLiabilityCode = excelApp.GetCell(i, "M").Value;
-                    tempModel.GetLiabilityName = excelApp.GetCell(i, "O").Value;
-                    tempModel.BenefitType = excelApp.GetCell(i, "J").Value;
-                    tempModel.DeductibleType = excelApp.GetCell(i, "W").Value;
-                    tempModel.Deductible = excelApp.GetCell(i, "X").Value;
-                    tempModel.ClaimRatio = excelApp.GetCell(i, "Y").Value;
-                    tempModel.ClmSettDate = excelApp.GetCell(i, "AA").Value;
-                    tempModel.PayStatusCode = excelApp.GetCell(i, "AB").Value;
-                    tempModel.ProductNo = excelApp.GetCell(i, "H").Value;
-                    if (string.IsNullOrWhiteSpace(tempModel.PolicyNo))
-                    {
-                        break;
-                    }
-                    lstLLClaimDetailGroup.Add(tempModel);
-                }
+                var _excel = new ExcelHelper();
+                ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
+                lstLLClaimDetailGroup = _excel.Read<TEMP_LLClaimDetail>(excel).ToList();
 
                 ProcessLogProxy.SuccessMessage("Get excel information Success");
+                excel.Close();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            finally
-            {
-                excelApp.CloseExcel();
-            }
+            
         }
 
         #region shangjunqi ADD

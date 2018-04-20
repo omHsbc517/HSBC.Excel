@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HSBC.InsuranceDataAnalysis.Model
 {
-    [Sheet("Sheet1", "AU")]
+    [Sheet("Sheet1", "BC")]
     public class TEMP_LCProduct
     {
         /// <summary>
