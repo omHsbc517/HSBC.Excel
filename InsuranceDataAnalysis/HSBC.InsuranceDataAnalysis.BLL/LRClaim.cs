@@ -140,7 +140,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.GrpProductNo = ""; //kong
 
                 //个人保单号
-                currentModel.PolicyNo = tempModel.PolicyNo.PadLeft(8,'0');
+                currentModel.PolicyNo = tempModel.PolicyNo.PadLeft(8, '0');
 
                 //主附险性质代码
                 currentModel.MainProductFlag = CommFuns.GetMainProductFlag(tempModel.Product);
@@ -159,7 +159,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo) && e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
                 currentModel.MainProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductNo;
 
-               
+
 
                 //产品编码
                 currentModel.ProductCode = tempModel.Product;
@@ -255,12 +255,16 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //赔付比例
                 currentModel.ClaimRatio = TEMPLLClaimDetail == null ? "" : TEMPLLClaimDetail.ClaimRatio;
 
-                //保险账户价值 //TODO 个人
+                //保险账户价值 
                 var tempInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo)
-                  && e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
+                  && e.ProductNo.Equal(currentModel.ProductNo)).ToList();
+                decimal AccountValue = 0;
+                for (int j = 0; j < tempInsureAcc.Count; j++)
+                {
+                    AccountValue += Common.ConvertToDecimalToStrDecimal(tempInsureAcc[i].AccountValue);
+                }
 
-                currentModel.AccountValue = tempInsureAcc == null ?
-                        string.Empty : Common.ConvertToStrToStrDecimal(tempInsureAcc.AccountValue);
+                currentModel.AccountValue = AccountValue.ToString("0.00");
 
                 //临分标记
                 currentModel.FacultativeFlag = ConfigInformation.TextValue;
@@ -413,7 +417,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.GrpProductNo = tempModel.ProdTyp;//16.4
 
                 //个人保单号
-                currentModel.PolicyNo = tempModel.PolicyNo.PadLeft(7,'0');
+                currentModel.PolicyNo = tempModel.PolicyNo.PadLeft(7, '0');
 
 
                 //个单保险险种号码
@@ -426,7 +430,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 // 主险保险险种号码
                 var tempLCProductGroup = businessModel.lstTEMP_LCProductGroup.Where(e =>
                 e.GrpPolicyNo.Equals(currentModel.GrpPolicyNo) &&
-                e.PolicyNo.Substring(1,7).Equal(currentModel.PolicyNo) &&
+                e.PolicyNo.Substring(1, 7).Equal(currentModel.PolicyNo) &&
                 e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
                 currentModel.MainProductNo = tempLCProductGroup == null ? string.Empty : tempLCProductGroup.MainProductNo;
 
@@ -450,7 +454,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.GetLiabilityName = currentModel.LiabilityName;
 
                 //赔案号 
-                var LLClaimDetailGroup = businessModel.lstLLClaimDetailGroup.Where(A => A.PolicyNo.PadLeft(7,'0') == currentModel.PolicyNo && A.GrpPolicyNo == currentModel.GrpPolicyNo).FirstOrDefault();
+                var LLClaimDetailGroup = businessModel.lstLLClaimDetailGroup.Where(A => A.PolicyNo.PadLeft(7, '0') == currentModel.PolicyNo && A.GrpPolicyNo == currentModel.GrpPolicyNo).FirstOrDefault();
                 currentModel.ClaimNo = LLClaimDetailGroup == null ? "" : LLClaimDetailGroup.ClmCaseNo;
 
                 //赔付责任类型代码
@@ -508,7 +512,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.Status = "03";
 
                 //基本保额
-                var lCProduct_Group = businessModel.lstTEMP_LCProductGroup.Where(A => A.GrpPolicyNo== currentModel.GrpPolicyNo && A.PolicyNo.Substring(1, 7) == currentModel.PolicyNo && A.ProductNo == currentModel.GrpProductNo).FirstOrDefault();
+                var lCProduct_Group = businessModel.lstTEMP_LCProductGroup.Where(A => A.GrpPolicyNo == currentModel.GrpPolicyNo && A.PolicyNo.Substring(1, 7) == currentModel.PolicyNo && A.ProductNo == currentModel.GrpProductNo).FirstOrDefault();
                 currentModel.BasicSumInsured = lCProduct_Group == null ? string.Empty : Common.ConvertToStrToStrDecimal(lCProduct_Group.BasicSumInsured.Trim());
 
                 //风险保额
@@ -549,10 +553,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.FinalCashValue = ConfigInformation.NumberValue;
 
                 //被保人客户号
-                currentModel.InsuredNo = tempModel.Clntnum.PadLeft(8,'0');
+                currentModel.InsuredNo = tempModel.Clntnum.PadLeft(8, '0');
 
                 //被保人姓名
-                var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Substring(1,7).Equal(currentModel.PolicyNo)
+                var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Substring(1, 7).Equal(currentModel.PolicyNo)
                 && e.GrpPolicyNo.Equal(currentModel.GrpPolicyNo)).FirstOrDefault();
                 currentModel.InsuredName = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredName;
 
@@ -630,7 +634,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //赔案号  lRClaimModel.ClaimNo  前面赋值
 
                 //出险日期
-                currentModel.AccidentDate =tempModel.Incurrdate.Substring(0,4)+"/"+ tempModel.Incurrdate.Substring(4, 2)+"/"+ tempModel.Incurrdate.Substring(6, 2);
+                currentModel.AccidentDate = tempModel.Incurrdate.Substring(0, 4) + "/" + tempModel.Incurrdate.Substring(4, 2) + "/" + tempModel.Incurrdate.Substring(6, 2);
 
                 //结案日期
                 LLClaimDetailGroup = businessModel.lstLLClaimDetailGroup.Where(A => A.ClmCaseNo == currentModel.ClaimNo).FirstOrDefault();

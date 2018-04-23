@@ -317,16 +317,16 @@ namespace HSBC.InsuranceDataAnalysis.UI
                     if (LRProductChecked) lrProduct.InputDataToLRProductSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth);
 
                     //1.16.2 LRInsureCont 生成再保合同信息表
-                 //   if (LRInsureContChecked) lRInsureCont.WriteLRInsureContSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth);
+                    if (LRInsureContChecked) lRInsureCont.WriteLRInsureContSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth);
 
                     //1.16.3 LRAccount 再保账单信息表 
-                   // if (LRAccountChecked) LRAccount.WriteLRAccountSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth);
+                    if (LRAccountChecked) LRAccount.WriteLRAccountSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth);
 
                     //1.16.4 LRCont 再保首续期险种明细表
-                   // if (LRContChecked) { LRCont lRCont = new LRCont(); lRCont.WriteLRContSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth); }
+                    if (LRContChecked) { LRCont lRCont = new LRCont(); lRCont.WriteLRContSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth); }
 
                     //1.16.5 LREdor 再保保全变更信息表
-                  //  if (LREdorChecked) { LREdor lREdor = new LREdor(); lREdor.WriteLREdorSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth); }
+                    if (LREdorChecked) { LREdor lREdor = new LREdor(); lREdor.WriteLREdorSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth); }
 
                     //1.16.6 LRClaim 再保理赔信息表
                     if (LRClaimChecked) { LRClaim lRClaim = new LRClaim(); lRClaim.WriteLRClaimSheet(contractInfoBusiness, OutputFolderPath, lastDateOfMonth); }

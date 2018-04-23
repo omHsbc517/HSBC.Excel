@@ -64,6 +64,15 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             return result;
         }
 
+        public static decimal ConvertToDecimalToStrDecimal(string value)
+        {
+            decimal result = 0;
+
+            result = string.IsNullOrWhiteSpace(value) ?0 :
+                        decimal.Parse(value);
+            return result;
+        }
+
         public static string GetCurrentMonthLastDay(DateTime nowValue)
         {
             string result = string.Empty;

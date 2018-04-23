@@ -482,6 +482,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 52);
             excelApp.SetColumnTextType("Sheet1", 53);
             excelApp.SetColumnTextType("Sheet1", 37);
+            excelApp.SetColumnTextType("Sheet1", 59);
 
             excelApp.SetColumnDateType("Sheet1", 18);
             excelApp.SetColumnDateType("Sheet1", 19);

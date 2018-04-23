@@ -139,9 +139,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         public List<TEMP_LLClaimInfo> lstTEMP_LLClaimInfo
         { get; set; }
 
-
-        //public List<TEMP_LCGrpProduct> lstTEMP_LCGrpProduct { get; set; }
-
         public List<TEMP_LCProduct> lstTEMP_LCProduct { get; set; }
 
         public List<TEMP_LCProduct> lstTEMP_LCProductGroup { get; set; }
@@ -205,27 +202,29 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             ProcessLogProxy.Normal("Start to get contract Info excel information");
             GetDataFromContractInfo(inputFilePath + @"\Contract Info.xlsx");
             GetDataFromProductInfo(inputFilePath + @"\Contract Info.xlsx");
-            //GetDataFromTEMP_LMLiabilityInfo(InformationExcelPath + @"\TEMP_LMLiability.xlsx");
-            GetDataFromTEMP_LMProductInfo(InformationExcelPath + @"\TEMP_LMProduct.xlsx");
             GetDataFromRIStatementStatistics(inputFilePath);
             GetInforceBusinessListingData(inputFilePath);
-            GetPolicyAlternationReportGroupData(inputFilePath + @"\group\Policy alternation report-GROUP.csv");
-            GetDataRIMonthlyReportGroup(inputFilePath + @"\group\RI Monthly report-GROUP.csv");
-            GetRIClaimReportGroupData(inputFilePath + @"\group\RI Claim report-GROUP.csv");
-            GetDataFromTEMPLCProductGroup(inputFilePath + @"\group\LCProduct_Group.xlsx");
-            this.GetLCGrpContGroup(inputFilePath + @"\group\LCGrpCont_Group.xlsx");
-            this.GetDataFromlstLCInsuredGroup(inputFilePath + @"\group\LCInsured_Group.xlsx");
-            //GetTEMP_LCInsureAccTraceData(InformationExcelPath + @"\TEMP_LCInsureAccTrace.xlsx");
+
+            GetDataFromTEMP_LMProductInfo(InformationExcelPath + @"\TEMP_LMProduct.xlsx");
             GetTEMP_LCPolTransactionData(InformationExcelPath + @"\TEMP_LCPolTransaction.xlsx");
             GetTEMP_LLClaimDetailData(InformationExcelPath + @"\TEMP_LLClaimDetail.xlsx");
-            GetLLClaimDetailGroupData(inputFilePath + @"\group\LLClaimDetail_Group.xlsx");
             GetTEMP_LLClaimPolicyData(InformationExcelPath + @"\TEMP_LLClaimPolicy.xlsx");
             GetTEMP_LLClaimInfoData(InformationExcelPath + @"\TEMP_LLClaimInfo.xlsx");
             GetDataFromlstTEMPLCInsured(InformationExcelPath + @"\TEMP_LCInsured.xlsx");
             GetDataFromTEMPLCInsureAcc(InformationExcelPath + @"\TEMP_LCInsureAcc.xlsx");
             GetDataFromTEMPLCProduct(InformationExcelPath + @"\TEMP_LCProduct.xlsx");
             GetDataFromTEMPLCCont(InformationExcelPath + @"\TEMP_LCCont.xlsx");
-            //GetDataFromTEMPLCGrpProduct(InformationExcelPath + @"\TEMP_LCGrpProduct.xlsx");
+
+            if (System.IO.Directory.Exists(inputFilePath + @"\group"))
+            {
+                GetDataFromTEMPLCProductGroup(inputFilePath + @"\group\LCProduct_Group.xlsx");
+                this.GetLCGrpContGroup(inputFilePath + @"\group\LCGrpCont_Group.xlsx");
+                this.GetDataFromlstLCInsuredGroup(inputFilePath + @"\group\LCInsured_Group.xlsx");
+                GetPolicyAlternationReportGroupData(inputFilePath + @"\group\Policy alternation report-GROUP.csv");
+                GetDataRIMonthlyReportGroup(inputFilePath + @"\group\RI Monthly report-GROUP.csv");
+                GetRIClaimReportGroupData(inputFilePath + @"\group\RI Claim report-GROUP.csv");
+                GetLLClaimDetailGroupData(inputFilePath + @"\group\LLClaimDetail_Group.xlsx");
+            }
             ProcessLogProxy.SuccessMessage("Get excel information Success");
 
         }
@@ -1031,8 +1030,16 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         private void GetLCGrpContGroup(string excelPath)
         {
             ProcessLogProxy.Normal("Start to get LCGrpContGroup excel information");
-            CheckExcelFile(excelPath);
+            try
+            {
+                CheckExcelFile(excelPath);
+            }
+            catch (Exception ex)
+            {
 
+                ProcessLogProxy.Error(ex.Message);
+                return;
+            }
             var _excel = new ExcelHelper();
             ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
             lstLCGrpContGroup = _excel.Read<LCGrpContGroup>(excel).ToList();
@@ -1147,7 +1154,16 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             try
             {
                 ProcessLogProxy.Normal("Start to get LLClaimDetail_Group excel information");
-                CheckExcelFile(excelPath);
+                try
+                {
+                    CheckExcelFile(excelPath);
+                }
+                catch (Exception ex)
+                {
+
+                    ProcessLogProxy.Error(ex.Message);
+                    return;
+                }
                 var _excel = new ExcelHelper();
                 ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
                 lstLLClaimDetailGroup = _excel.Read<TEMP_LLClaimDetail>(excel).ToList();
@@ -1265,7 +1281,16 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             try
             {
                 ProcessLogProxy.Normal("Start to get TEMPLCProductGroup excel information");
+                try
+                {
+                    CheckExcelFile(excelPath);
+                }
+                catch (Exception ex)
+                {
 
+                    ProcessLogProxy.Error(ex.Message);
+                    return;
+                }
                 var _excel = new ExcelHelper();
                 ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
                 lstTEMP_LCProductGroup = _excel.Read<TEMP_LCProduct>(excel).ToList();
@@ -1340,6 +1365,16 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             try
             {
                 ProcessLogProxy.Normal("Start to get LCInsured_Group excel information");
+                try
+                {
+                    CheckExcelFile(excelPath);
+                }
+                catch (Exception ex)
+                {
+
+                    ProcessLogProxy.Error(ex.Message);
+                    return;
+                }
                 var _excel = new ExcelHelper();
                 ExcelReflectionHelper excel = new ExcelReflectionHelper(false, excelPath);
                 lst_LCInsuredGroup = _excel.Read<TEMP_LCInsured>(excel).ToList();
