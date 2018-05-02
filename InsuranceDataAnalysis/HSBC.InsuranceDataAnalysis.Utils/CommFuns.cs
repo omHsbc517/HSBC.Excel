@@ -130,6 +130,34 @@ namespace HSBC.InsuranceDataAnalysis.Utils
             return origanizationCode;
         }
 
+        public static string GetTransactionNo2(int serialNumber, string yearMonthDay)
+        {
+            string origanizationCode = string.Empty;
+            origanizationCode = OriganizationCode + yearMonthDay + "RE0001";
+            return origanizationCode;
+        }
+
+        public static string GetTransactionNo4(int serialNumber, string yearMonthDay)
+        {
+            string origanizationCode = string.Empty;
+            origanizationCode = OriganizationCode + yearMonthDay + "RE4" + serialNumber.ToString().PadLeft(7, '0');
+            return origanizationCode;
+        }
+
+        public static string GetTransactionNo5(int serialNumber, string yearMonthDay)
+        {
+            string origanizationCode = string.Empty;
+            origanizationCode = OriganizationCode + yearMonthDay + "RE5" + serialNumber.ToString().PadLeft(7, '0');
+            return origanizationCode;
+        }
+
+        public static string GetTransactionNo6(int serialNumber, string yearMonthDay)
+        {
+            string origanizationCode = string.Empty;
+            origanizationCode = OriganizationCode + yearMonthDay + "RE6" + serialNumber.ToString().PadLeft(7, '0');
+            return origanizationCode;
+        }
+
 
         public static void KillExcelProcess()
         {

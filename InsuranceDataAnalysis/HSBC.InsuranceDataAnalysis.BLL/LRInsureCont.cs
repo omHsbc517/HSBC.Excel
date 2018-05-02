@@ -28,7 +28,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 for (int i = 0; i < contractInfoBusiness.lstLRInsureContModel.Count; i++)
                 {
                     var model = listLRInsureContModel[i];
-                    excelApp.SetCellValue("Sheet1", i + 2, "A", CommFuns.GetTransactionNo(i + 1, LastDateOfMonth));
+                    excelApp.SetCellValue("Sheet1", i + 2, "A", CommFuns.GetTransactionNo2(i + 1, LastDateOfMonth));
                     excelApp.SetCellValue("Sheet1", i + 2, "B", model.CompanyCode);
                     excelApp.SetCellValue("Sheet1", i + 2, "C", model.ReInsuranceContNo);
                     excelApp.SetCellValue("Sheet1", i + 2, "D", model.ReInsuranceContName);

@@ -24,7 +24,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 lstCategory.Clear();
                 lstCategory.Add(new PersonalLiabilityCategory
                 {
-                    LiabilityCategoryCode = "100",
+                    LiabilityCategoryCode = "0100",
                     LiabilityCategoryName = "身故",
                     CategoryCode = "Death",
                     CategoryName = "身故"
@@ -32,7 +32,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 lstCategory.Add(new PersonalLiabilityCategory
                 {
-                    LiabilityCategoryCode = "100",
+                    LiabilityCategoryCode = "0100",
                     LiabilityCategoryName = "意外身故",
                     CategoryCode = "ADB",
                     CategoryName = "意外身故"
@@ -40,7 +40,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 lstCategory.Add(new PersonalLiabilityCategory
                 {
-                    LiabilityCategoryCode = "300",
+                    LiabilityCategoryCode = "0300",
                     LiabilityCategoryName = "重大疾病",
                     CategoryCode = "MI",
                     CategoryName = "重大疾病"
@@ -48,7 +48,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 lstCategory.Add(new PersonalLiabilityCategory
                 {
-                    LiabilityCategoryCode = "500",
+                    LiabilityCategoryCode = "0500",
                     LiabilityCategoryName = "全残",
                     CategoryCode = "TPD",
                     CategoryName = "全残"
@@ -56,7 +56,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 lstCategory.Add(new PersonalLiabilityCategory
                 {
-                    LiabilityCategoryCode = "700",
+                    LiabilityCategoryCode = "0700",
                     LiabilityCategoryName = "医疗",
                     CategoryCode = "Medical",
                     CategoryName = "医疗"

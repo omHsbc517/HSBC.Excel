@@ -128,7 +128,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 LRClaimModel currentModel = new LRClaimModel();
                 //交易编码
-                currentModel.TransactionNo = CommFuns.GetTransactionNo(serialNumber, yearMonthDay);
+                currentModel.TransactionNo = CommFuns.GetTransactionNo6(serialNumber, yearMonthDay);
 
                 //保险机构代码
                 currentModel.CompanyCode = origanizationCode;
@@ -381,7 +381,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.BackDate = GetLastDayOfMonth(yearMonthDay);
 
                 //货币代码
-                currentModel.Currency = "CNY";
+                currentModel.Currency = "156";
 
                 //分保计算日期
                 currentModel.ReComputationsDate = GetLastDayOfMonth(yearMonthDay);
@@ -407,7 +407,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 var tempModel = businessModel.lstRIClaimReportGroup[i];
                 LRClaimModel currentModel = new LRClaimModel();
                 //交易编码
-                currentModel.TransactionNo = CommFuns.GetTransactionNo(serialNumber, yyyymm);//已赋值
+                currentModel.TransactionNo = CommFuns.GetTransactionNo6(serialNumber, yyyymm);//已赋值
                 //保险机构代码
                 currentModel.CompanyCode = origanizationCode;
                 //团体保单号
@@ -653,7 +653,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.BackDate = GetLastDayOfMonth(yyyymm);
 
                 //货币代码
-                currentModel.Currency = "CNY";
+                currentModel.Currency = "156";
 
                 //分保计算日期
                 currentModel.ReComputationsDate = GetLastDayOfMonth(yyyymm);

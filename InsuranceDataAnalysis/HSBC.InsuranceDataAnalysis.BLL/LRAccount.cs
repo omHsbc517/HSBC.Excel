@@ -82,7 +82,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     LRAccountModel lrAccountModel = new LRAccountModel();
                     var reinsurer = new Reinsurer().GetReinsurerInforByName(model.ToCompanyName);
                     var reinsurerCode = reinsurer == null ? string.Empty : reinsurer.ReinsurerCode;
-                    lrAccountModel.TransactionNo = CommFuns.GetTransactionNo(i + 1, dateyyyymm);
+                    lrAccountModel.TransactionNo = CommFuns.GetTransactionNo2(i + 1, dateyyyymm);
                     lrAccountModel.CompanyCode = origanizationCode;
                     lrAccountModel.AccountID = lRInsureContModel.MainReInsuranceContNo + dateyyyymm.Substring(0, 6);//账单编号
                     lrAccountModel.AccountingPeriodfrom = Convert.ToDateTime(dateyyyymm.Substring(0, 4) + "-" + dateyyyymm.Substring(4, 2) + "-01").ToString("yyyy/MM/dd");
@@ -91,7 +91,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     lrAccountModel.ReinsurerName = reinsurer == null ? string.Empty : reinsurer.ReinsurerChineseName;
                     lrAccountModel.ReInsuranceContNo = lRInsureContModel.MainReInsuranceContNo;//合同号码
                     lrAccountModel.ReInsuranceContName = lRInsureContModel.ReInsuranceContName;//合同名称
-                    lrAccountModel.Currency = "CNY";
+                    lrAccountModel.Currency = "156";
                     lrAccountModel.ReinsurancePremium = decimal.Round(decimal.Parse(model.Debit.ReinsurancePremiums), 2).ToString();//
                     lrAccountModel.ReinsuranceCommssionRate = "0.5";//分保佣金、分保费50%
                     lrAccountModel.ReinsuranceCommssion = decimal.Round(decimal.Parse(model.Credit.ReinsuranceCommissions), 2).ToString();//

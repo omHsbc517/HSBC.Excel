@@ -202,7 +202,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
         {
             ZaiBaoProductInfo tempModel = new ZaiBaoProductInfo();
 
-            string currentTransactionNo = CommFuns.GetTransactionNo(serialNumber, yearMonthDay);
+            string currentTransactionNo = CommFuns.GetTransactionNo2(serialNumber, yearMonthDay);
 
             excelApp.SetCellValue(rowIndex, "A", currentTransactionNo);
             excelApp.SetCellValue(rowIndex, "B", origanizationCode);
@@ -328,7 +328,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
       string productName, string productType,  string termType, ContractInfoBusiness business)
         {
             ZaiBaoProductInfo tempModel = new ZaiBaoProductInfo();
-            string currentTransactionNo = CommFuns.GetTransactionNo(serialNumber, yearMonthDay);
+            string currentTransactionNo = CommFuns.GetTransactionNo2(serialNumber, yearMonthDay);
 
             excelApp.SetCellValue(rowIndex, "A", currentTransactionNo);
             excelApp.SetCellValue(rowIndex, "B", origanizationCode);

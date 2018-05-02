@@ -127,7 +127,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     LRContModel currentModel = new LRContModel();
 
                     currentModel.IsGroup = true;
-                    currentModel.TransactionNo = CommFuns.GetTransactionNo(serialNumber, yearMonthDay);
+                    currentModel.TransactionNo = CommFuns.GetTransactionNo4(serialNumber, yearMonthDay);
                     currentModel.CompanyCode = CommFuns.OriganizationCode;
                     currentModel.GrpPolicyNo = tempModel.ChdrNumber;
 
@@ -386,7 +386,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                        templstZaiBaoProductInfo.RetentionAmount;
 
                     //货币代码
-                    currentModel.Currency = "CNY";
+                    currentModel.Currency = "156";
 
                     //分保比例
                     currentModel.QuotaSharePercentage = templstZaiBaoProductInfo == null ? string.Empty :
@@ -421,7 +421,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     LRContModel currentModel = new LRContModel();
 
                     //交易编码
-                    currentModel.TransactionNo = CommFuns.GetTransactionNo(serialNumber, yearMonthDay);
+                    currentModel.TransactionNo = CommFuns.GetTransactionNo4(serialNumber, yearMonthDay);
 
                     //保险机构代码
                     currentModel.CompanyCode = CommFuns.OriganizationCode;
@@ -681,7 +681,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                        templstZaiBaoProductInfo.RetentionAmount;
 
                     //货币代码
-                    currentModel.Currency = "CNY";
+                    currentModel.Currency = "156";
 
                     //分保比例
                     currentModel.QuotaSharePercentage = templstZaiBaoProductInfo == null ? string.Empty :

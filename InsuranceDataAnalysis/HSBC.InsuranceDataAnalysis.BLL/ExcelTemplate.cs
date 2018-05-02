@@ -74,6 +74,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 2);
             excelApp.SetColumnTextType("Sheet1", 10);
             excelApp.SetColumnTextType("Sheet1", 14);
+            excelApp.SetColumnTextType("Sheet1", 18);
             excelApp.Save();
         }
 
@@ -134,6 +135,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 1);
             excelApp.SetColumnTextType("Sheet1", 2);
             excelApp.SetColumnTextType("Sheet1", 6);
+            excelApp.SetColumnTextType("Sheet1", 10);
 
             excelApp.SetColumnDateType("Sheet1", 4);
             excelApp.SetColumnDateType("Sheet1", 5);
@@ -199,7 +201,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.AddNewSheet(excelFilePath, "LJInvoiceRelation");
             excelApp.AddNewSheet(excelFilePath, "LJInvoice");
         }
-
 
         private void CreateLRContSheet(IExcel excelApp)
         {
@@ -271,6 +272,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 6);
             excelApp.SetColumnTextType("Sheet1", 7);
             excelApp.SetColumnTextType("Sheet1", 8);
+            excelApp.SetColumnTextType("Sheet1", 13);
             excelApp.SetColumnTextType("Sheet1", 14);
             excelApp.SetColumnTextType("Sheet1", 17);
             excelApp.SetColumnTextType("Sheet1", 23);
@@ -278,6 +280,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 35);
             excelApp.SetColumnTextType("Sheet1", 49);
             excelApp.SetColumnTextType("Sheet1", 50);
+            excelApp.SetColumnTextType("Sheet1", 55);
 
             excelApp.SetColumnDateType("Sheet1", 18);
             excelApp.SetColumnDateType("Sheet1", 19);
@@ -288,9 +291,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
             excelApp.Save();
         }
-
-
-
 
         private void CreateLREdorSheet(IExcel excelApp)
         {
@@ -377,12 +377,15 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 7);
             excelApp.SetColumnTextType("Sheet1", 8);
             excelApp.SetColumnTextType("Sheet1", 9);
+            excelApp.SetColumnTextType("Sheet1", 13);
             excelApp.SetColumnTextType("Sheet1", 15);
             excelApp.SetColumnTextType("Sheet1", 21);
             excelApp.SetColumnTextType("Sheet1", 22);
             excelApp.SetColumnTextType("Sheet1", 53);
             excelApp.SetColumnTextType("Sheet1", 54);
             excelApp.SetColumnTextType("Sheet1", 33);
+            excelApp.SetColumnTextType("Sheet1", 48);
+            excelApp.SetColumnTextType("Sheet1", 72);
 
             excelApp.SetColumnDateType("Sheet1", 16);
             excelApp.SetColumnDateType("Sheet1", 17);
@@ -394,8 +397,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
             excelApp.Save();
         }
-
-
 
         private void CreateLRClaimSheet(IExcel excelApp)
         {
@@ -483,6 +484,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
             excelApp.SetColumnTextType("Sheet1", 53);
             excelApp.SetColumnTextType("Sheet1", 37);
             excelApp.SetColumnTextType("Sheet1", 59);
+            excelApp.SetColumnTextType("Sheet1", 62);
 
             excelApp.SetColumnDateType("Sheet1", 18);
             excelApp.SetColumnDateType("Sheet1", 19);
@@ -498,8 +500,6 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
             excelApp.Save();
         }
-
-
 
         #endregion
     }

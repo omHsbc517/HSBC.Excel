@@ -31,7 +31,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 {
                     serialNumber++;
                     var model = lREdorModelList[i];
-                    excelApp.SetCellValue(i + 2, "A", CommFuns.GetTransactionNo(i + 1, dateyyyymm));
+                    excelApp.SetCellValue(i + 2, "A", CommFuns.GetTransactionNo5(i + 1, dateyyyymm));
                     excelApp.SetCellValue(i + 2, "B", model.CompanyCode);
                     excelApp.SetCellValue(i + 2, "C", model.GrpPolicyNo);
                     excelApp.SetCellValue(i + 2, "D", model.GrpProductNo);
@@ -152,7 +152,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 //个单保险险种号码
                 var tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e =>
-                    e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0')) &&
+                    e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8, '0')) &&
                     e.ProductCode.Equal(tempModel.ProductCode) &&
                     e.MainProductFlag.Equals(currentModel.MainProductFlag)).FirstOrDefault();
 
@@ -163,7 +163,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
 
                 //主险保险险种号码
                 tempLCProduct = businessModel.lstTEMP_LCProduct.Where(e =>
-                  e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0')) &&
+                  e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8, '0')) &&
                    e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
 
                 currentModel.MainProductNo = tempLCProduct == null ? string.Empty : tempLCProduct.MainProductNo;
@@ -241,7 +241,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                     Common.ConvertToStrToStrDecimal(tempLCCont.Premium);
 
                 //保险账户价值
-                var tempLstInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0'))
+                var tempLstInsureAcc = businessModel.lstTEMP_LCInsureAcc.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8, '0'))
 && e.ProductNo.Equal(currentModel.ProductNo));
 
                 decimal tempAccountTotal = 0m;
@@ -286,7 +286,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.InsuredNo = tempModel.MemberCertificateNo.PadLeft(8, '0');
 
                 //被保人姓名
-                var tempInsured = businessModel.lstTEMP_LCInsured.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0'))
+                var tempInsured = businessModel.lstTEMP_LCInsured.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8, '0'))
                 && e.InsuredNo.Equal(currentModel.InsuredNo)).FirstOrDefault();
                 currentModel.InsuredName = tempInsured == null ? string.Empty : tempInsured.InsuredName;
 
@@ -328,7 +328,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //保全批单号码
                 currentModel.EndorsementNo = listLCPolTransaction.Count == 0 ? "" : listLCPolTransaction.First().EndorsementNo;
                 //保全项目类型
-                currentModel.EdorType = ConfigInformation.TextValue;
+                currentModel.EdorType = "99";
                 //保全生效日期
                 currentModel.EdorValiDate = ConfigInformation.DateValue;
                 //保全确认日期
@@ -406,7 +406,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.ReinsuranceCommssionChange = ConfigInformation.NumberValue;
 
                 //货币代码
-                currentModel.Currency = "CNY";
+                currentModel.Currency = "156";
 
                 //分保计算日期
                 currentModel.ReComputationsDate = GetLastDayOfMonth(yyyymm);
@@ -460,7 +460,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 //主险保险险种号码
                 var tempLCProductGroup = businessModel.lstTEMP_LCProductGroup.Where(e =>
                     e.GrpPolicyNo.Equals(currentModel.GrpPolicyNo) &&
-                    e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0')) &&
+                    e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8, '0')) &&
                     e.ProductNo.Equal(currentModel.ProductNo)).FirstOrDefault();
 
                 currentModel.MainProductNo = tempLCProductGroup == null ? string.Empty : tempLCProductGroup.MainProductNo;
@@ -564,10 +564,10 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.FinalLiabilityReserve = ConfigInformation.NumberValue;
 
                 //被保人客户号
-                currentModel.InsuredNo = tempModel.Clntnum.PadLeft(8,'0');
+                currentModel.InsuredNo = tempModel.Clntnum.PadLeft(8, '0');
 
                 //被保人姓名
-                var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8,'0'))
+                var tempInsuredGroup = businessModel.lst_LCInsuredGroup.Where(e => e.PolicyNo.Equal(currentModel.PolicyNo.PadLeft(8, '0'))
                && e.GrpPolicyNo.Equal(currentModel.GrpPolicyNo)).FirstOrDefault();
                 currentModel.InsuredName = tempInsuredGroup == null ? string.Empty : tempInsuredGroup.InsuredName;
 
@@ -612,14 +612,30 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.InsurePeoples = "1";
 
                 //保全受理号码
-                var listLCPolTransaction = businessModel.lstTEMP_LCPolTransaction.Where(A => A.PolicyNo == currentModel.PolicyNo.PadLeft(8,'0')).ToList();
-                currentModel.EndorAcceptNo = listLCPolTransaction.Count == 0 ? "" : listLCPolTransaction.First().EndorAcceptNo;
+                var listLCPolTransaction = businessModel.lstTEMP_LCPolTransaction.Where(A => A.PolicyNo == currentModel.PolicyNo.PadLeft(8, '0')).ToList();
+                //currentModel.EndorAcceptNo = listLCPolTransaction.Count == 0 ? "" : listLCPolTransaction.First().EndorAcceptNo;
+
+                string tempSign = "1";
+
+                if (!string.IsNullOrWhiteSpace(currentModel.Premium))
+                {
+                    decimal d;
+                    var tempConvertResult = decimal.TryParse(currentModel.Premium, out d);
+
+                    if (tempConvertResult)
+                    {
+                        tempSign = d > 0 ? "0" : "1";
+                    }
+                }
+
+                currentModel.EndorAcceptNo = "PS" + currentModel.PolicyNo + yyyymm + tempSign + "00000";
 
                 //保全批单号码
-                currentModel.EndorsementNo = listLCPolTransaction.Count == 0 ? "" : listLCPolTransaction.First().EndorsementNo;
+                //currentModel.EndorsementNo = listLCPolTransaction.Count == 0 ? "" : listLCPolTransaction.First().EndorsementNo;
+                currentModel.EndorsementNo = currentModel.EndorAcceptNo;
 
                 //保全项目类型
-                currentModel.EdorType = ConfigInformation.TextValue;
+                currentModel.EdorType = "99";
                 //保全生效日期
                 currentModel.EdorValiDate = ConfigInformation.DateValue;
                 //保全确认日期
@@ -702,7 +718,7 @@ namespace HSBC.InsuranceDataAnalysis.BLL
                 currentModel.ReinsuranceCommssionChange = ConfigInformation.NumberValue;
 
                 //货币代码
-                currentModel.Currency = "CNY";
+                currentModel.Currency = "156";
 
                 //分保计算日期
                 currentModel.ReComputationsDate = GetLastDayOfMonth(yyyymm);
